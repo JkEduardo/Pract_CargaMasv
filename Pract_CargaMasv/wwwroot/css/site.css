@@ -1,0 +1,122 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.tabla-detalle {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse; /* Opcional: Elimina el espacio entre las celdas */
+}
+
+    .tabla-detalle td, .tabla-detalle th {
+        margin: 0;
+        padding: 0;
+        border: none; /* Elimina los bordes si no los necesitas */
+    }
+
+
+/* Estilo básico para los íconos */
+.icono-accion {
+    color: white; /* Color inicial del ícono */
+    font-size: 1.5em; /* Tamaño del ícono */
+    cursor: pointer; /* Mostrar el cursor de mano */
+    margin-right: 10px; /* Espacio entre íconos */
+}
+
+    /* Cambiar el color cuando se pasa el cursor sobre el ícono */
+    .icono-accion:hover {
+        color: #007bff; /* Color al hacer hover (azul) */
+    }
+
+.detalle-usuario-modal {
+    background-color:slategrey; /* Ruta de tu imagen */ 
+    background-size: cover;
+    background-position: center;
+    color: white; /* Color de texto */
+    text-align: center;
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados opcionales */
+}
+
+    .detalle-usuario-modal .modal-header,
+    .detalle-usuario-modal .modal-footer {
+        border: none; /* Quitar bordes del header y footer */
+    }
+
+    .detalle-usuario-modal .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px; /* Altura mínima para centrar el contenido */
+        padding: 20px;
+    }
+
+    /* Centrar el botón Aceptar */
+    .detalle-usuario-modal .modal-footer {
+        justify-content: center;
+    }
+
+    /* Opcional: Ajustar el color del botón para que combine con el diseño */
+    .detalle-usuario-modal .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+.titulo-detalle {
+    font-family: Arial, sans-serif;
+    color: whitesmoke;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.detalle-texto-inicio {
+    font-family: Verdana, sans-serif;
+    color: gainsboro;
+    font-size: 18px;
+    text-align: initial;
+}
+.detalle-texto-center {
+    font-family: Verdana, sans-serif;
+    color: gainsboro;
+    font-size: 18px;
+    text-align: end;
+}
+.detalle-usuario img {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.detalle-usuario video {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.custom-modal-size .modal-dialog {
+    max-width: 95%; /* Ajusta el ancho máximo del modal */
+    margin: 30px auto; /* Opcional: Ajusta el margen vertical del modal */
+}
+
+.custom-modal-size .modal-content {
+    /* Puedes ajustar más estilos aquí si es necesario */
+}

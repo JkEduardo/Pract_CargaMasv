@@ -1,0 +1,60 @@
+﻿@model Modelos.Usuario
+
+<script src="~/css/site.css"></script>
+<div class="detalle-usuario">
+    <h3>Detalle del Usuario</h3>
+    <table class="tabla-detalle">
+        <tbody>
+            <tr><td class="detalle-texto-inicio">Nombre: @Model.Nombre @Model.ApellidoP @Model.ApellidoM</td></tr>
+            <tr><td class="detalle-texto-inicio">Sexo: @Model.Sexo</td></tr>
+            <tr><td class="detalle-texto-inicio">Fecha de Nacimiento: @Model.FechaNacimeinto</td></tr>
+
+            <!-- Mostrar la imagen -->
+            @if (!string.IsNullOrEmpty(Model.Imagen))
+            {
+                <tr>
+                    <td>
+                        <img src="@Model.Imagen" type="video/@Model.ImagenFormato.TrimStart('.')" alt=" Imagen del usuario" style="max-width: 50%; height: auto;" />
+                        <p class="detalle-texto-inicio"> Formato: @Model.ImagenFormato Dimensiones: @Model.w x @Model.y px</p>
+                    </td>
+                </tr>
+            }
+
+            <!-- Mostrar el video o un recuadro en blanco si no existe -->
+            @if (!string.IsNullOrEmpty(Model.Video))
+            {
+                <tr>
+                    
+                    <td>
+                        <video controls style="max-width: 100%;">
+                            <source src="@Model.Video" type="video/@Model.VideoFormato.TrimStart('.')">
+                            Tu navegador no soporta la reproducción de videos.
+                        </video>
+                        <p class="detalle-texto-inicio"> Formato: @Model.VideoFormato  Tamaño: @Model.Videosize MB </p>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>                    
+                    <td>
+                        <div style="width: 100%; height: 200px; background-color: #f0f0f0; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #999;">Sin video disponible</span>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button id="aceptar-btn" class="btn btn-primary">Aceptar</button>
+</div>
+
+<script>
+    $('#aceptar-btn').click(function () {
+        $('#detalle-modal').modal('hide');
+    });
+</script>
+
+
+

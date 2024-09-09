@@ -12,12 +12,13 @@ using Grpc.Core;
 using System.Drawing;
 using MediaInfo.DotNetWrapper;
 using MediaInfo.DotNetWrapper.Enumerations;
+using Microsoft.AspNetCore.OutputCaching;
 
 
 namespace Pract_CargaMasv.Controllers
 {
     public class ExportarController : Controller
-    {        
+    {
         //public ActionResult Exportar()
         //{
 
@@ -34,26 +35,42 @@ namespace Pract_CargaMasv.Controllers
         //    }
         //}
 
-        public ActionResult Exportar(int page = 1)
+        
+        public ActionResult Exportar(int page = 1, int recordsPerPage = 10)
         {
-            const int PageSize = 10;
-
             Modelos.Usuario usuario = new Modelos.Usuario();
             Modelos.Result resultUs = Metodos.Usuario.GetAll(usuario);
 
             if (resultUs.Correct)
             {
                 var usuarios = resultUs.Objects.Cast<Modelos.Usuario>().ToList();
+                var totalRegistros = usuarios.Count;
+
+                if (recordsPerPage == 0)
+                {
+                    recordsPerPage = totalRegistros; // Mostrar todos los registros si se selecciona "Todos"
+                }
+
+                var registrosPorPaginaOpciones = new List<int>();
+                for (int i = 10; i < totalRegistros; i += 10)
+                {
+                    registrosPorPaginaOpciones.Add(i);
+                }
+                registrosPorPaginaOpciones.Add(totalRegistros); // Añadir la opción de "Todos"
+
                 var pagedUsuarios = usuarios
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize)
+                    .Skip((page - 1) * recordsPerPage)
+                    .Take(recordsPerPage)
                     .ToList();
 
                 var model = new Modelos.UsuarioViewModel
                 {
                     ListUsuarios = pagedUsuarios,
                     CurrentPage = page,
-                    TotalPages = (int)Math.Ceiling(usuarios.Count / (double)PageSize)
+                    TotalPages = (int)Math.Ceiling(totalRegistros / (double)recordsPerPage),
+                    TotalRegistros = totalRegistros,
+                    RegistrosPorPagina = recordsPerPage, // El valor que se seleccionó debe reflejarse aquí
+                    RegistrosPorPaginaOpciones = registrosPorPaginaOpciones
                 };
 
                 return View(model);
@@ -64,6 +81,9 @@ namespace Pract_CargaMasv.Controllers
                 return View();
             }
         }
+
+
+
 
 
         [HttpPost]

@@ -107,5 +107,62 @@ namespace Metodos
 
             return result;
         }
+
+        public static Modelos.Result GetAllExport(Modelos.Usuario usuario)
+        {
+            Modelos.Result result = new Modelos.Result();
+            try
+            {
+                using (Conexion.BarberalContext context = new Conexion.BarberalContext())
+                {
+                    // Ejecuta el Stored Procedure 'GetAllExport'
+                    var query = context.UsuariosBas.FromSqlRaw($"GetAllExpor").ToList();
+
+                    // Inicializa la lista para almacenar los resultados
+                    result.Objects = new List<object>();
+
+                    if (query != null && query.Count > 0)
+                    {
+                        foreach (var obj in query)
+                        {
+                            // Mapear los datos del resultado del Stored Procedure al objeto 'Usuario'
+                            usuario = new Modelos.Usuario
+                            {
+                                StatusUsuario = obj.StatusUsuario.Value,
+                                IdBa = obj.IdBa,
+                                Nombre = obj.Nombre,
+                                ApellidoP = obj.ApellidoP,
+                                ApellidoM = obj.ApellidoM,
+                                Sexo = obj.Sexo,
+                                FechaNacimeinto = obj.FechaNacimeinto.ToString(),
+                                UsuarioBa = obj.UsuarioBa,
+                                ClaveUs = obj.ClaveUs,
+                                Domicilio = obj.Domicilio,
+                                CodigoP = obj.CodigoP
+                            };
+
+                            // Agregar el objeto 'Usuario' a la lista de resultados
+                            result.Objects.Add(usuario);
+                        }
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se han encontrado registros.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Captura cualquier excepción y establece el resultado como incorrecto
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            // Retorna el resultado final
+            return result;
+        }
+
     }
 }

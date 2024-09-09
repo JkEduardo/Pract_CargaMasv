@@ -120,3 +120,339 @@ body {
 .custom-modal-size .modal-content {
     /* Puedes ajustar más estilos aquí si es necesario */
 }
+
+
+/* General Table Styling */
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombras suaves alrededor de la tabla */
+    border-radius: 15px; /* Bordes redondeados */
+    overflow: hidden;
+    border-spacing: 0; /* Eliminar el espacio entre las celdas */
+}
+
+thead {
+    background-color: #8da0c8;
+    font-weight: bold;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+    height: 60px; /* Altura fija para las filas */
+    overflow: hidden; /* Oculta el contenido que se salga de la celda */
+    border: none; /* Eliminar completamente los bordes de las celdas */
+}
+/* Definir tamaños específicos para las columnas */
+.col-nombre {
+    width: 20%;
+}
+
+.col-sexo {
+    width: 10%;
+}
+
+.col-fecha {
+    width: 15%;
+}
+
+.col-datos-usuario {
+    width: 20%;
+}
+
+.col-domicilio {
+    width: 20%;
+}
+
+.col-codigo-postal {
+    width: 10%;
+}
+
+.col-options {
+    width: 5%;
+}
+
+
+tbody tr {
+    background-color: #fff;
+}
+
+    tbody tr:hover {
+        background-color: #f1f5f8;
+    }
+
+/* Estilo para truncar texto largo */
+.descripcion {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita el número de líneas a 2 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Estilo para íconos */
+.icono-accion {
+    color: black;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+    .icono-accion:hover {
+        color: cadetblue;
+    }
+
+/* Estatus */
+.status.text-success {
+    color: green;
+}
+
+.status.text-danger {
+    color: red;
+}
+
+/* Paginación */
+/* Estilo de la paginación */
+.pagination {
+    display: inline-flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Estilo de los elementos de la paginación */
+.page-item {
+    margin: 0 5px;
+}
+
+/* Estilo de los enlaces de cada página */
+.page-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px; /* Ajustar el tamaño a 25px */
+    height: 25px; /* Ajustar el tamaño a 25px */
+    border: 1px solid black;
+    border-radius: 50%;
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.875rem; /* Tamaño de fuente reducido */
+}
+
+    /* Hover para los enlaces de paginación */
+    .page-link:hover {
+        background-color: black;
+        color: white;
+    }
+
+/* Página activa */
+.page-item.active .page-link {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+/* Estilo de los botones de navegación (< y >) */
+.page-link[aria-label="Anterior"],
+.page-link[aria-label="Siguiente"] {
+    border: none;
+    background-color: transparent;
+    color: black;
+    font-size: 1.2rem; /* Tamaño moderado para los símbolos */
+    font-weight: bold; /* Negrita para los símbolos */
+}
+
+    /* Quitar el contorno al hover de < y > */
+    .page-link[aria-label="Anterior"]:hover,
+    .page-link[aria-label="Siguiente"]:hover {
+        background-color: transparent;
+        color: black;
+    }
+
+/* Para hacer la paginación más pequeña */
+.pagination .page-link {
+    width: 25px; /* Tamaño reducido a 25px */
+    height: 25px; /* Tamaño reducido a 25px */
+    line-height: 25px; /* Centrar el texto verticalmente */
+    font-size: 0.875rem; /* Tamaño de fuente ajustado */
+}
+
+
+
+
+/* Contenedor de los controles de paginación */
+.pagination-controls {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Contador de registros */
+#record-count {
+    margin-left: 10px;
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Selector redondeado con borde */
+.records-dropdown {
+    width: 150px; /* Ajusta el tamaño según sea necesario */
+    padding: 5px 15px;
+    border: 2px solid #ccc;
+    border-radius: 50px; /* Bordes redondeados */
+    font-size: 0.875rem;
+    background-color: black;
+    color: #333;
+    cursor: pointer;
+    appearance: none; /* Elimina el estilo por defecto */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    text-align: center; /* Centrar el texto */
+}
+
+    /* Cambios en el borde cuando el usuario pasa el cursor */
+    .records-dropdown:hover {
+        border-color: #007bff;
+    }
+
+    /* Cuando el selector está enfocado */
+    .records-dropdown:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Añadir un pequeño resplandor */
+    }
+
+    /* Flecha del selector */
+    .records-dropdown::after {
+        content: '\25BC'; /* Flecha hacia abajo */
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #333;
+    }
+
+/* Contenedor principal para la paginación y el selector */
+/* Contenedor principal para la paginación y el selector */
+.pagination-wrapper {
+    display: flex;
+    justify-content: space-between; /* Separar los elementos horizontalmente */
+    align-items: center; /* Alinear verticalmente al centro */
+    padding: 10px 0;
+}
+
+/* Estilo de los controles de registros por página (ahora alineado a la izquierda) */
+.pagination-controls {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo del selector de registros */
+.records-dropdown {
+    font-weight: bold; /* Texto en negrita */
+    border: 2px solid #000; /* Contorno negro */
+    padding: 5px 15px;
+    border-radius: 50px; /* Bordes redondeados, opcional */
+    background-color: white; /* Fondo blanco */
+    color: #333; /* Color del texto dentro del selector */
+    font-size: 0.875rem;
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer; /* Cambia el cursor a pointer para indicar que es interactivo */
+}
+
+    /* Cambios en el borde cuando el selector está en hover o enfoque */
+    .records-dropdown:hover,
+    .records-dropdown:focus {
+        border-color: grey; /* Color azul cuando el mouse está sobre el selector o tiene foco */
+        /*box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);*/ /* Resplandor azul cuando se enfoca */
+    }
+
+#record-count {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Estilo de la paginación */
+.pagination-container {
+    flex: 1; /* Permite que la paginación ocupe todo el espacio disponible */
+    display: flex;
+    justify-content: flex-end; /* Alineado a la derecha */
+}
+
+.pagination {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+/* Contenedor principal que coloca los elementos en línea */
+/* Contenedor general con el breadcrumb arriba y el título y botón alineados */
+.header-container {
+    margin-bottom: 20px;
+}
+
+/* Estilo del breadcrumb */
+.breadcrumb {
+    background-color: transparent; /* Eliminar fondo predeterminado */
+    font-size: 0.875rem; /* Tamaño pequeño del breadcrumb */
+    margin-bottom: 10px; /* Espacio entre el breadcrumb y el título */
+}
+
+.breadcrumb-item a {
+    color: #6c757d; /* Color gris para los enlaces del breadcrumb */
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: #000; /* Color negro para el elemento activo */
+    font-weight: bold; /* Negrita para el elemento actual */
+}
+
+/* Alinear el título y el botón en la misma fila */
+.title-and-button {
+    display: flex;
+    justify-content: space-between; /* Asegurar que el botón esté a la derecha */
+    align-items: center; /* Alinear verticalmente el título y el botón */
+}
+
+/* Estilo del título de la página */
+.page-title {
+    font-size: 1.5rem; /* Tamaño del título */
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Color gris oscuro */
+    margin-right: 20px; /* Espacio entre el título y el botón */
+}
+
+/* Estilo del botón de crear notificación verde */
+.create-notification-btn {
+    background-color: #28a745; /* Color verde */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px; /* Bordes redondeados */
+    font-size: 0.875rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border: none; /* Sin contorno */
+}
+
+    .create-notification-btn .plus-icon {
+        font-size: 1.2rem;
+        margin-left: 8px;
+    }
+
+    .create-notification-btn:hover {
+        background-color: #218838; /* Color verde más oscuro en hover */
+        text-decoration: none;
+    }

@@ -23,9 +23,9 @@
             </ol>
         </nav>
         <div class="title-and-button">
-            <h1 class="page-title">Notificaciones app</h1>
+            <h1 class="page-title">Notificaciones App</h1>
             <a href="#" class="btn btn-green create-notification-btn">
-                Crear notificación <span class="plus-icon">+</span>
+                Crear notificación <i class="bi bi-plus-lg plus-icon "></i>
             </a>
         </div>
     </div>
@@ -34,12 +34,12 @@
     <div class="row">
         <div class="col-md-12 align-self-lg-center">
                 <table class="table table-bordered table-hover">
-                    <thead>
+                    <thead class="thead">
                         <tr>
                             <th class="col-nombre">Nombre</th>
                             <th class="col-fecha">Fecha de creación</th>
-                            <th class="ccol-sexo">Status</th>
-                            <th class="col-optionse">Acciones</th>
+                            <th class="col-sexo">Status</th>
+                            <th class="col-options">Acciones  </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,11 +53,11 @@
                                         @(usuario.StatusUsuario ? "ACTIVA" : "INACTIVA")
                                     </span>
                                 </td>
-                                <td>
-                                    <i class="bi bi-pencil icono-accion" data-id="@usuario.IdBa"></i>
-                                    <i class="bi bi-eye icono-accion" onclick="verDetalle(@usuario.IdBa)"></i>
+                            <td class="col-options-ico">
+                                <i class="bi bi-pencil icono-accion" data-id="@usuario.IdBa"></i>
+                                <i class="bi bi-eye icono-accion"  onclick="verDetalle(@usuario.IdBa)"></i>
                                     @* <i class="bi bi-trash icono-accion" data-id="@usuario.IdBa"></i> *@
-                                </td>
+                            </td>
                             </tr>
                         }
                     </tbody>
@@ -94,7 +94,8 @@
                 {
                     <li class="page-item">
                         <a class="page-link" href="@Url.Action("Exportar", new { page = Model.CurrentPage - 1 })" aria-label="Anterior">
-                            <span aria-hidden="true">&lt;</span>
+                            @* <span aria-hidden="true">&lt;</span> *@
+                                        <i class="bi bi-chevron-left"></i>
                         </a>
                     </li>
                 }
@@ -108,7 +109,8 @@
                 {
                     <li class="page-item">
                         <a class="page-link" href="@Url.Action("Exportar", new { page = Model.CurrentPage + 1 })" aria-label="Siguiente">
-                            <span aria-hidden="true">&gt;</span>
+                            @* <span aria-hidden="true">&gt;</span> *@
+                                        <i class="bi bi-chevron-right"></i>
                         </a>
                     </li>
                 }
@@ -158,7 +160,7 @@
 
         document.getElementById('recordsPerPage').addEventListener('change', function () {
             var selectedValue = this.value; // Obtener el valor seleccionado
-            var url = '@Url.Action("Exportar", "Exportar")'; // Cambia "Usuario" por tu controlador correcto
+            var url = '@Url.Action("Exportar", "Exportar")'; 
 
             // Si el valor seleccionado es "Todos", se establece en 0 para mostrar todos los registros
             if (selectedValue === 'all') {

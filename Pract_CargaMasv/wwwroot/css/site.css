@@ -21,6 +21,48 @@ body {
   margin-bottom: 60px;
 }
 
+/*Fuentes Poppins*/
+@font-face {
+    font-family: 'Poppins';
+    src: url('/Fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: 400; /* Peso normal */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/Fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: 700; /* Peso negrita */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Poppins-regular';
+    src: url('../Fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: 700; /* Peso negrita */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Figtree-LiNormal';
+    src: url('../Fonts/Figtree-Light.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Figtree-BolNegritas';
+    src: url('../Fonts/Figtree-Bold.ttf') format('truetype');
+    font-weight: 700; /* Peso negrita */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Figtree-BolNegrExtra';
+    src: url('../Fonts/Figtree-ExtraBold.ttf') format('truetype');
+    font-weight: 800; /* Peso negrita */
+    font-style: normal;
+}
+
+
+
+
 .tabla-detalle {
     margin: 0;
     padding: 0;
@@ -129,50 +171,71 @@ table {
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombras suaves alrededor de la tabla */
-    border-radius: 15px; /* Bordes redondeados */
+    border-radius: 8px 8px 0px 0px; /* Bordes redondeados */
     overflow: hidden;
     border-spacing: 0; /* Eliminar el espacio entre las celdas */
 }
 
-thead {
-    background-color: #8da0c8;
+thead {    
+    background-color: #8AA2C7;
     font-weight: bold;
+    height:20px;
+    padding:0px 20px 0px 20px;
+    gap: 20px;
 }
 
 th, td {
+    font-family: Figtree-LiNormal, sans-serif;
+    font-size: 12px;
     padding: 10px;
     text-align: left;
     vertical-align: middle;
     height: 60px; /* Altura fija para las filas */
+    width:195.2px;
     overflow: hidden; /* Oculta el contenido que se salga de la celda */
     border: none; /* Eliminar completamente los bordes de las celdas */
 }
 /* Definir tamaños específicos para las columnas */
 .col-nombre {
+    font-family: Figtree-BolNegritas, sans-serif;
+    font-size: 14px;
     width: 20%;
 }
 
 .col-sexo {
+    font-family: Figtree-BolNegritas, sans-serif;
+    font-size: 14px;
     width: 10%;
 }
 
 .col-fecha {
+    font-family: Figtree-BolNegritas, sans-serif;
+    font-size: 14px;
     width: 15%;
 }
 
 .col-datos-usuario {
+    font-family: Figtree-BolNegritas, sans-serif;
+    font-size: 14px;
     width: 20%;
 }
 
 .col-domicilio {
+    font-family: Figtree-BolNegritas, sans-serif;
+    font-size: 14px;
     width: 20%;
 }
 
 .col-codigo-postal {
+    font-family: Figtree-BolNegritas, sans-serif;
+    font-size: 14px;
     width: 10%;
 }
 
 .col-options {
+    font-family: Figtree-BolNegritas, sans-serif;
+    font-size: 14px;
+    text-align:end;
     width: 5%;
 }
 
@@ -192,12 +255,19 @@ tbody tr {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
+    max-width: 200px;
+    height: 3.5em;
 }
 
+.col-options-ico {
+    text-align: right; 
+}
 /* Estilo para íconos */
 .icono-accion {
     color: black;
-    font-size: 1.5em;
+    font-size: 1.5em;    
     cursor: pointer;
     margin-right: 10px;
 }
@@ -208,10 +278,14 @@ tbody tr {
 
 /* Estatus */
 .status.text-success {
+    font-family: Figtree-BolNegritas,sans-serif;
+    font-size: 12px;
     color: green;
 }
 
 .status.text-danger {
+    font-family: Figtree-BolNegritas,sans-serif;
+    font-size: 12px;
     color: red;
 }
 
@@ -306,7 +380,7 @@ tbody tr {
     padding: 5px 15px;
     border: 2px solid #ccc;
     border-radius: 50px; /* Bordes redondeados */
-    font-size: 0.875rem;
+    font-size: 14px;
     background-color: black;
     color: #333;
     cursor: pointer;
@@ -314,6 +388,7 @@ tbody tr {
     -webkit-appearance: none;
     -moz-appearance: none;
     outline: none;
+    font-family:Figtree-LiNormal;
     text-align: center; /* Centrar el texto */
 }
 
@@ -340,7 +415,6 @@ tbody tr {
     }
 
 /* Contenedor principal para la paginación y el selector */
-/* Contenedor principal para la paginación y el selector */
 .pagination-wrapper {
     display: flex;
     justify-content: space-between; /* Separar los elementos horizontalmente */
@@ -356,13 +430,14 @@ tbody tr {
 
 /* Estilo del selector de registros */
 .records-dropdown {
+    font-family: Figtree-BolNegritas,sans-serif;
     font-weight: bold; /* Texto en negrita */
     border: 2px solid #000; /* Contorno negro */
     padding: 5px 15px;
     border-radius: 50px; /* Bordes redondeados, opcional */
     background-color: white; /* Fondo blanco */
     color: #333; /* Color del texto dentro del selector */
-    font-size: 0.875rem;
+    font-size: 14px;
     appearance: none; /* Elimina el estilo predeterminado del navegador */
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -377,8 +452,9 @@ tbody tr {
     }
 
 #record-count {
-    font-size: 0.875rem;
-    color: #666;
+    font-family: Figtree-LiNormal,sans-serif;
+    font-size: 12px;
+    color: black;
 }
 
 /* Estilo de la paginación */
@@ -396,7 +472,6 @@ tbody tr {
 
 
 /* Contenedor principal que coloca los elementos en línea */
-/* Contenedor general con el breadcrumb arriba y el título y botón alineados */
 .header-container {
     margin-bottom: 20px;
 }
@@ -409,17 +484,22 @@ tbody tr {
 }
 
 .breadcrumb-item a {
+    font-family: Figtree-LiNormal,sans-serif;
+    font-size: 16px;
     color: #6c757d; /* Color gris para los enlaces del breadcrumb */
     text-decoration: none;
 }
 
 .breadcrumb-item.active {
+    font-family: Figtree-BolNegritas,sans-serif;
+    font-size: 16px;
     color: #000; /* Color negro para el elemento activo */
-    font-weight: bold; /* Negrita para el elemento actual */
+   /* font-weight: bold;*/ /* Negrita para el elemento actual */
 }
 
 /* Alinear el título y el botón en la misma fila */
 .title-and-button {
+    
     display: flex;
     justify-content: space-between; /* Asegurar que el botón esté a la derecha */
     align-items: center; /* Alinear verticalmente el título y el botón */
@@ -427,19 +507,23 @@ tbody tr {
 
 /* Estilo del título de la página */
 .page-title {
+    font-family: Figtree-BolNegrExtra, sans-serif;
     font-size: 1.5rem; /* Tamaño del título */
     font-weight: bold; /* Texto en negrita */
-    color: #333; /* Color gris oscuro */
-    margin-right: 20px; /* Espacio entre el título y el botón */
+    color: black; /* Color gris oscuro */
+    margin-right: 24px; /* Espacio entre el título y el botón */
 }
 
 /* Estilo del botón de crear notificación verde */
 .create-notification-btn {
-    background-color: #28a745; /* Color verde */
+    background-color: black; /* Color verde */
     color: white;
-    padding: 10px 20px;
-    border-radius: 50px; /* Bordes redondeados */
-    font-size: 0.875rem;
+    padding: 16px 32px 16px 32px;
+    width: 225px;
+    height: 54px;
+    border-radius: 100px; /* Bordes redondeados */
+    font-family:Figtree-BolNegritas,sans-serif;
+    font-size: 16px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -448,8 +532,11 @@ tbody tr {
 }
 
     .create-notification-btn .plus-icon {
-        font-size: 1.2rem;
+        font-size: 16px;
+        width:20px;
+        height:20px;
         margin-left: 8px;
+        align-items:center;
     }
 
     .create-notification-btn:hover {

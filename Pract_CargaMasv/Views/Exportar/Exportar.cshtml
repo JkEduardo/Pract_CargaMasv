@@ -8,9 +8,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/css/site.css"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    @* <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet"> *@
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Dropzone.js CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css" rel="stylesheet">
+
+    <!-- Dropzone.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+
 
 </head>
 <body>
@@ -24,8 +35,8 @@
         </nav>
         <div class="title-and-button">
             <h1 class="page-title">Notificaciones App</h1>
-            <a href="#" class="btn btn-green create-notification-btn">
-                Crear notificación <i class="bi bi-plus-lg plus-icon "></i>
+            <a href="@Url.Action("CrearNotificacionPush", "Exportar")" class="btn btn-green create-notification-btn">
+                Crear notificación <i class="bi bi-plus-lg plus-icon"></i>
             </a>
         </div>
     </div>
@@ -63,17 +74,17 @@
                     </tbody>
                 </table>
 
-                <div class="pagination-wrapper">
-    <!-- Selector de registros por página -->
-    <div class="pagination-controls">
-        <select id="recordsPerPage" class="records-dropdown form-select">
-            @foreach (var option in Model.RegistrosPorPaginaOpciones)
-            {
-                var isSelected = Model.RegistrosPorPagina == option ? "selected" : "";  
-                <option value="@option" isSelected>@option por página</option>
-            }
-        </select>
-        <span id="record-count">
+            <div class="pagination-wrapper">
+                    <!-- Selector de registros por página -->
+                <div class="pagination-controls">
+                    <select id="recordsPerPage" class="records-dropdown form-select">
+                        @foreach (var option in Model.RegistrosPorPaginaOpciones)
+                        {
+                            var isSelected = Model.RegistrosPorPagina == option ? "selected" : "";  
+                            <option value="@option" isSelected>@option por página</option>
+                        }
+                     </select>
+                     <span id="record-count">
                         @{
                         // Calcular cuántos registros se muestran actualmente
                         int registrosMostrados = Model.CurrentPage * Model.RegistrosPorPagina;
@@ -83,41 +94,41 @@
                         }
                         }
                         @registrosMostrados de @Model.TotalRegistros registros
-        </span>                       
-    </div>
+                    </span>                       
+                </div>
 
-    <!-- Paginación de páginas -->
-    <div class="pagination-container">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-end"> <!-- Alineado a la derecha -->
-                @if (Model.CurrentPage > 1)
-                {
-                    <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Exportar", new { page = Model.CurrentPage - 1 })" aria-label="Anterior">
-                            @* <span aria-hidden="true">&lt;</span> *@
-                                        <i class="bi bi-chevron-left"></i>
-                        </a>
-                    </li>
-                }
-                @for (var i = Math.Max(1, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 2); i++)
-                {
-                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("Exportar", new { page = i, recordsPerPage = Model.RegistrosPorPagina })">@i</a>
-                    </li>
-                }
-                @if (Model.CurrentPage < Model.TotalPages)
-                {
-                    <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Exportar", new { page = Model.CurrentPage + 1 })" aria-label="Siguiente">
-                            @* <span aria-hidden="true">&gt;</span> *@
-                                        <i class="bi bi-chevron-right"></i>
-                        </a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
-</div>
+                <!-- Paginación de páginas -->
+                <div class="pagination-container">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-end"> <!-- Alineado a la derecha -->
+                            @if (Model.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Exportar", new { page = Model.CurrentPage - 1 })" aria-label="Anterior">
+                                        @* <span aria-hidden="true">&lt;</span> *@
+                                                    <i class="bi bi-chevron-left"></i>
+                                    </a>
+                                </li>
+                            }
+                            @for (var i = Math.Max(1, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 2); i++)
+                            {
+                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Exportar", new { page = i, recordsPerPage = Model.RegistrosPorPagina })">@i</a>
+                                </li>
+                            }
+                            @if (Model.CurrentPage < Model.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Exportar", new { page = Model.CurrentPage + 1 })" aria-label="Siguiente">
+                                        @* <span aria-hidden="true">&gt;</span> *@
+                                                    <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
 
 
                 
@@ -129,20 +140,88 @@
 </div>
 
 
-    <div class="modal fade" id="detalle-modal" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered custom-modal-size .modal-dialog" role="document">
-            <div class="modal-content detalle-usuario-modal">
+    @* modal especifico *@
+    <div class="modal fade" id="createNotificationModal" tabindex="-1" aria-labelledby="createNotificationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detalleModalLabel">Detalle del Usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="createNotificationModalLabel">Crear nueva notificación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Aquí se carga la vista parcial con AJAX -->
+                    <div class="row">
+                        <!-- Columna izquierda: Formulario -->
+                        <div class="col-md-7">
+                            <div class="section-title">
+                                <h6>Notificación push</h6>
+                                <hr class="section-divider" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="notificationTitle" class="form-label">Título de notificación</label>
+                                <input type="text" class="form-control" id="notificationTitle" maxlength="100" placeholder="Compra autorizada por:" oninput="updatePreview()">
+                                <div class="text-end"><small id="titleCounter">Caracteres Máximos 0/100</small></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="notificationDescription" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="notificationDescription" rows="3" maxlength="150" placeholder="Descripción" oninput="updatePreview()"></textarea>
+                                <div class="text-end"><small id="descCounter">Caracteres Máximos 0/150</small></div>
+                            </div>
+
+                            <!-- Área de carga de icono -->
+                            <div class="mb-3">
+                                <label for="iconUpload" class="form-label">Sube un icono</label>
+                                <div class="upload-area" id="iconUploadArea">
+                                    <input type="file" id="iconUpload" class="d-none" accept=".jpg, .png">
+                                    <label for="iconUpload" class="upload-text">
+                                        <img src="/Img/iconocarga.png" alt="Upload icon" />
+                                        Arrastra o <a href="javascript:void(0)" onclick="document.getElementById('iconUpload').click()"> Selecciona tu archivo</a>
+                                    </label>
+                                    <small>JPG, PNG no mayor a 1MB</small>
+                                </div>
+                            </div>
+
+                            <!-- Área de carga de video o imagen -->
+                            <div class="mb-3">
+                                <label for="mediaUpload" class="form-label">Sube un video o imagen (opcional)</label>
+                                <div class="upload-area" id="mediaUploadArea">
+                                    <input type="file" id="mediaUpload" class="d-none" accept=".jpg, .png, .mp4">
+                                    <label for="mediaUpload" class="upload-text">
+                                        <img src="/Img/iconocarga.png" alt="Upload icon" />
+                                        Arrastra o <a href="javascript:void(0)" onclick="document.getElementById('mediaUpload').click()"> Selecciona tu archivo</a>
+                                    </label>
+                                    <small>JPG, PNG o MP4 no mayor a 20MB</small>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Columna derecha: Previsualización -->
+                        <div class="col-md-5">
+                            <div class="section-title">
+                                <h6>Notificaciones dentro de la app</h6>
+                                <hr class="section-divider" />
+                            </div>
+                            <div class="notification-preview">
+                                <div class="notification-icon">
+                                    <img id="iconPreview" src="~/Img/iconocarga.png" alt="Icon Preview" />
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title" id="previewTitle">Compra autorizada por:</div>
+                                    <div class="notification-description" id="previewDescription">Descripción</div>
+                                    <div>
+                                        <span class="green-circle"></span>
+                                        <small id="currentTime">08:49 h</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <small>*Los videos e imágenes serán visibles dentro de la app, en la sección de Notificaciones.</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" id="cancelarbutton" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="createNotificationButton" disabled>Crear notificación</button>
                 </div>
             </div>
         </div>
@@ -150,13 +229,27 @@
 
 
 
-    @* <input type="button" id="btnExportarExcel" value="Enviar petición">
-    <div id="response"></div> *@
-
     <!-- Asegúrate de incluir jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
      <script src="~/js/sweetalert2.all.min.js"></script>    
     <script>
+
+        $('#abrirCrearNotificacion').on('click', function () {
+            // Hacer una petición AJAX para cargar la vista en el contenedor
+            $.ajax({
+                url: '/Notificaciones/CrearNotificacion', // Ruta del controlador que devuelve la vista
+                type: 'GET',
+                success: function (data) {
+                    // Cargar la vista en el contenedor
+                    $('#crearNotificacionContainer').html(data);
+                    // Cerrar el modal si es necesario
+                    $('#createNotificationModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    alert('Error al cargar la vista de creación de notificación.');
+                }
+            });
+        });
 
         document.getElementById('recordsPerPage').addEventListener('change', function () {
             var selectedValue = this.value; // Obtener el valor seleccionado
@@ -170,201 +263,428 @@
             // Redirigir con los parámetros seleccionados
             window.location.href = url + '?recordsPerPage=' + selectedValue + '&page=1';
         });
+        
+        var riskChars = /[!#$%&'()*+,.\/:;<=>?@@[\\\]^_`{|}~"'-]/g;
 
+        // Función para validar y bloquear caracteres de riesgo
+        function blockRiskChars(inputElement, counterElement, maxLength) {
+            $(inputElement).on('input', function () {
+                var value = $(this).val();
 
-        $(document).ready(function () {
-            // Cuando se haga clic en el botón con ID "btnExportarExcel"
-            $('#btnExportarExcel').click(function () {
-                // Realizar la petición AJAX
-                $.ajax({
-                    url: '@Url.Action("CargaMasiva", "Exportar")/', // URL de la acción en el controlador
-                    type: 'POST', // Método HTTP a utilizar
-                    success: function (response) {
-                        // Manejar la respuesta aquí, si es necesario
-                        if (response.success) {
-                            alert('Exportación a Excel exitosa!');
-                        } else {
-                            alert('Hubo un error en la exportación a Excel.');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        alert('Error al intentar exportar a Excel: ' + error);
-                    }
-                });
-            });
-        });
-
-            
-        $(document).ready(function () {
-            $('.btn-delete').click(function () {
-                var id = $(this).data('id');
-                var url = '@Url.Action("Delete", "Usuario")';
-                debugger
-                // Verificar si el checkbox está seleccionado
-                // var isChecked = $('.estatus-checkbox').is(':checked');
-                var isChecked = $(this).closest('tr').find('.estatus-checkbox').is(':checked');
-
-                if (isChecked) {
-                    Swal.fire({
-                        title: 'Usuario Activado',
-                        text: 'Primero debe desactivar al usuario.',
-                        icon: 'warning',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Ok'
-                    });
-                    return; // Salir de la función para evitar que se ejecute el código de eliminación
-                }
-                else 
-                {
-                    // Mostrar la confirmación de eliminación
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: '¡No podrás revertir esto!',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, eliminarlo!',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: url,
-                                type: 'POST',
-                                data: { IdUsuario: id },
-                                success: function (response) {
-                                    if (response.success) {
-                                        Swal.fire({
-                                            title: '¡Eliminado!',
-                                            text: 'El registro ha sido eliminado.',
-                                            icon: 'success'
-                                        }).then(() => {
-                                            location.reload(); // Recargar la página para actualizar la lista de usuarios
-                                        });
-                                    } else {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: 'Error al eliminar el registro.',
-                                            icon: 'error'
-                                        });
-                                    }
-                                },
-                                error: function (xhr, status, error) {
-                                    Swal.fire({
-                                        title: 'Error',
-                                        text: 'Error al intentar eliminar el registro: ' + error,
-                                        icon: 'error'
-                                    });
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Cancelado',
-                                text: 'La acción ha sido cancelada.',
-                                icon: 'info'
-                            });
-                        }
-                    });
+                // Bloqueo de caracteres de riesgo
+                if (riskChars.test(value)) {
+                    $(this).val(value.replace(riskChars, ''));
                 }
 
-                
-            });
-        });
-
-        $('.btn-edit').click(function () {
-            var id = $(this).data('id');
-            var url = '@Url.Action("Edit", "Usuario")';
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                data: { IdUsuario: id },
-                success: function (response) {
-                    if (response.success) {
-                        // Aquí puedes manejar la respuesta, por ejemplo, cargar un modal con los datos
-                        $('#modalEdit').html(response.html);
-                        $('#modalEdit').modal('show');
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Error al cargar los datos de edición.',
-                            icon: 'error'
-                        });
-                    }
-                },
-                error: function (xhr, status, error) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Error al intentar cargar los datos de edición: ' + error,
-                        icon: 'error'
-                    });
-                }
-            });
-        });
-
-        debugger
-        function verDetalle(id) {
-            $.ajax({
-                url: '@Url.Action("DetalleUsuario", "Exportar")',
-                type: 'GET',
-                data: { id: id },
-                success: function (result) {
-                    $('#detalle-modal .modal-content').html(result);
-                    $('#detalle-modal').modal('show');
-                },
-                error: function () {
-                    alert("Error al cargar los detalles del usuario");
-                }
+                // Actualización del contador de caracteres
+                var length = $(this).val().length;
+                $(counterElement).text('Caracteres Máximos ' + length + '/' + maxLength);
             });
         }
 
+        // Validación para el campo de Título
+        blockRiskChars('#notificationTitle', '#titleCounter', 100);
+
+        // Validación para el campo de Descripción
+        blockRiskChars('#notificationDescription', '#descCounter', 150);
+
+        const currentTimeElement = document.getElementById('currentTime');
+        const now = new Date();
+        const formattedTime = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0') + ' h';
+        currentTimeElement.textContent = formattedTime;
+
+        // Agregar eventos de arrastre a las áreas de carga
+        const iconUploadArea = document.getElementById('iconUploadArea');
+        const mediaUploadArea = document.getElementById('mediaUploadArea');
+        const iconInput = document.getElementById('iconUpload');
+        const mediaInput = document.getElementById('mediaUpload');
+
+        // Manejar el evento de cambio en el input de archivo (para seleccionar archivo manualmente)
+        iconInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];  // Obtener el archivo seleccionado
+            handleFileDrop(file, 'icon');  // Llamar a la función para manejar el archivo
+        });
+
+        mediaInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];  // Obtener el archivo seleccionado
+            handleFileDrop(file, 'media');  // Llamar a la función para manejar el archivo
+        });
+
+        // Prevenir comportamiento por defecto para evitar que el navegador abra el archivo
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            iconUploadArea.addEventListener(eventName, preventDefaults, false);
+            mediaUploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Cambiar apariencia al arrastrar
+        iconUploadArea.addEventListener('dragover', () => iconUploadArea.classList.add('dragging'), false);
+        iconUploadArea.addEventListener('dragleave', () => iconUploadArea.classList.remove('dragging'), false);
+        mediaUploadArea.addEventListener('dragover', () => mediaUploadArea.classList.add('dragging'), false);
+        mediaUploadArea.addEventListener('dragleave', () => mediaUploadArea.classList.remove('dragging'), false);
+
+        // Manejar el evento de soltar el archivo (drop)
+        iconUploadArea.addEventListener('drop', function (event) {
+            const file = event.dataTransfer.files[0];
+            handleFileDrop(file, 'icon'); // Llamar a la función para manejar el archivo
+        });
+
+        mediaUploadArea.addEventListener('drop', function (event) {
+            const file = event.dataTransfer.files[0];
+            handleFileDrop(file, 'media'); // Llamar a la función para manejar el archivo
+        });
+
+        // Función para prevenir el comportamiento por defecto
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleFileDrop(file, type) {
+            const validIconFormats = ['image/png', 'image/jpeg'];  // Formatos válidos para íconos (PNG, JPG)
+            const validMediaFormats = ['image/png', 'image/jpeg', 'video/mp4'];  // Formatos válidos para imagen/video (PNG, JPG, MP4)
+            const uploadArea = type === 'icon' ? $('#iconUploadArea') : $('#mediaUploadArea');
+            const iconPreview = $('#iconPreview');
+
+            // Validaciones para el ícono (solo PNG, JPG, menor a 1MB)
+            if (type === 'icon') {
+                if (file && validIconFormats.includes(file.type) && file.size <= 1 * 1024 * 1024) {  // Archivo menor a 1MB y formato correcto
+                    mostrarAnimacionDeCarga(uploadArea, file, true);
+                    iconPreview.attr('src', URL.createObjectURL(file));  // Actualiza la vista previa del ícono solo si es un ícono
+                } else {
+                    mostrarAnimacionDeCarga(uploadArea, file, false, '1MB', 'JPG o PNG');
+                }
+            }
+
+            // Validaciones para la imagen/video (solo PNG, JPG, MP4, menor a 20MB)
+            if (type === 'media') {
+                if (file && validMediaFormats.includes(file.type) && file.size <= 20 * 1024 * 1024) {  // Archivo menor de 20MB y formato correcto
+                    mostrarAnimacionDeCarga(uploadArea, file, true);
+                } else {
+                    mostrarAnimacionDeCarga(uploadArea, file, false, '20MB', 'JPG, PNG o MP4');
+                }
+            }
+        }
+
+        // Función para mostrar la animación de carga y permitir la selección de un nuevo archivo
+        function mostrarAnimacionDeCarga(uploadArea, file, isSuccess, sizeLimit = '', allowedFormats = '') {
+            uploadArea.removeClass('loading success error');  // Limpia todas las clases previas
+            uploadArea.addClass('loading');
+
+            setTimeout(function () {
+                uploadArea.removeClass('loading');
+                if (isSuccess) {
+                    uploadArea.addClass('success');
+                    uploadArea.html(`
+                            <img src="/Img/cargaexitosa.png" alt="Success icon" /> ${file.name} cargado correctamente
+                        `);
+                } else {
+                    uploadArea.addClass('error');
+                    uploadArea.html(`
+                            <img src="/Img/cargaerror.png" alt="Error icon" /> Archivo no válido. Seleccione un archivo de tipo ${allowedFormats} menor a ${sizeLimit}
+                            <a href="javascript:void(0)" class="selecciona-archivo">Selecciona tu archivo</a>
+                        `);
+                }
+            }, 1000); // Simula 1 segundo de carga
+
+            // Reactivar el evento de clic en el enlace "Selecciona tu archivo"
+            setTimeout(function () {
+                $('.selecciona-archivo').on('click', function () {
+                    const inputSelector = uploadArea.attr('id') === 'iconUploadArea' ? '#iconUpload' : '#mediaUpload';
+                    $(inputSelector).click();  // Activa el clic en el input de archivo
+                });
+            }, 1000);  // Esto asegura que se vuelva a activar tras la carga de la animación
+        }
+
+        // Evento para manejar la selección de archivo desde el input
+        $(document).on('change', '#iconUpload', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFileDrop(file, 'icon');
+            }
+        });
+
+        $(document).on('change', '#mediaUpload', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFileDrop(file, 'media');
+            }
+        });
+
+        // $('#iconUpload').on('change', function () {
+        //     const file = this.files[0];
+        //     if (file) {
+        //         handleFileDrop(file, 'icon');
+        //     }
+        // });
+
+        // $('#mediaUpload').on('change', function () {
+        //     const file = this.files[0];
+        //     if (file) {
+        //         handleFileDrop(file, 'media');
+        //     }
+        // });
+
+        // // Función para inicializar la funcionalidad de arrastre y soltar
+        // function setupDragAndDrop() {
+        //     const iconUploadArea = document.getElementById('iconUploadArea');
+        //     const mediaUploadArea = document.getElementById('mediaUploadArea');
+
+        //     // Prevenir comportamiento por defecto para evitar que el navegador abra el archivo
+        //     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        //         iconUploadArea.addEventListener(eventName, preventDefaults, false);
+        //         mediaUploadArea.addEventListener(eventName, preventDefaults, false);
+        //     });
+
+        //     // Cambiar apariencia al arrastrar (para feedback visual)
+        //     iconUploadArea.addEventListener('dragover', function () {
+        //         iconUploadArea.classList.add('dragging');
+        //     });
+        //     iconUploadArea.addEventListener('dragleave', function () {
+        //         iconUploadArea.classList.remove('dragging');
+        //     });
+
+        //     mediaUploadArea.addEventListener('dragover', function () {
+        //         mediaUploadArea.classList.add('dragging');
+        //     });
+        //     mediaUploadArea.addEventListener('dragleave', function () {
+        //         mediaUploadArea.classList.remove('dragging');
+        //     });
+
+        //     // Manejar el evento de soltar archivo para ícono
+        //     iconUploadArea.addEventListener('drop', function (event) {
+        //         const file = event.dataTransfer.files[0];
+        //         handleFileDrop(file, 'icon');  // Manejar archivo para ícono
+        //         iconUploadArea.classList.remove('dragging');  // Eliminar clase de arrastre
+        //     });
+
+        //     // Manejar el evento de soltar archivo para medios
+        //     mediaUploadArea.addEventListener('drop', function (event) {
+        //         const file = event.dataTransfer.files[0];
+        //         handleFileDrop(file, 'media');  // Manejar archivo para medios
+        //         mediaUploadArea.classList.remove('dragging');  // Eliminar clase de arrastre
+        //     });
+        // }
+
+        // // Prevenir el comportamiento por defecto del navegador
+        // function preventDefaults(e) {
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        // }
+
+        // // Función para manejar el archivo subido o arrastrado
+        // function handleFileDrop(file, type) {
+        //     const validIconFormats = ['image/png', 'image/jpeg'];
+        //     const validMediaFormats = ['image/png', 'image/jpeg', 'video/mp4'];
+        //     const uploadArea = type === 'icon' ? $('#iconUploadArea') : $('#mediaUploadArea');
+        //     const iconPreview = $('#iconPreview');
+
+        //     // Validación de archivo para ícono
+        //     if (type === 'icon') {
+        //         if (file && validIconFormats.includes(file.type) && file.size <= 1 * 1024 * 1024) {
+        //             mostrarAnimacionDeCarga(uploadArea, file, true);
+        //             iconPreview.attr('src', URL.createObjectURL(file));  // Actualiza la vista previa del ícono
+        //         } else {
+        //             mostrarAnimacionDeCarga(uploadArea, file, false);
+        //         }
+        //     }
+
+        //     // Validación de archivo para medios
+        //     if (type === 'media') {
+        //         if (file && validMediaFormats.includes(file.type) && file.size <= 20 * 1024 * 1024) {
+        //             mostrarAnimacionDeCarga(uploadArea, file, true);
+        //         } else {
+        //             mostrarAnimacionDeCarga(uploadArea, file, false);
+        //         }
+        //     }
+        // }
+
+        // // Función para mostrar animación de éxito o error
+        // function mostrarAnimacionDeCarga(uploadArea, file, isSuccess) {
+        //     uploadArea.addClass('loading');
+
+        //     setTimeout(function () {
+        //         uploadArea.removeClass('loading');
+        //         if (isSuccess) {
+        //             uploadArea.addClass('success');
+        //             uploadArea.find('.upload-text').html(`<img src="/Img/cargaexitosa.png" alt="Success icon" /> ${file.name} cargado correctamente`);
+        //         } else {
+        //             uploadArea.addClass('error');
+        //             const fileType = file.type.split('/')[1];
+        //             const sizeLimit = uploadArea.attr('id') === 'iconUploadArea' ? '1MB' : '20MB';
+        //             uploadArea.find('.upload-text').html(`<img src="/Img/cargaerror.png" alt="Error icon" /> Archivo no válido. Seleccione un archivo con el formato solicitado que sea menor a ${sizeLimit}`);
+        //         }
+        //     }, 2000);
+        // }
+
+        // // Llamar a la función para configurar el arrastre cuando se abre el modal
+        // $('#createNotificationModal').on('shown.bs.modal', function () {
+        //     setupDragAndDrop();
+        // });
+
+        // Función para actualizar los contadores de caracteres y previsualización de la notificación
+        function updatePreview() {
+            const titleInput = document.getElementById('notificationTitle');
+            const descInput = document.getElementById('notificationDescription');
+            const titleCounter = document.getElementById('titleCounter');
+            const descCounter = document.getElementById('descCounter');
+
+            // Actualiza los contadores de caracteres
+            titleCounter.innerText = `Caracteres Máximos ${titleInput.value.length}/100`;
+            descCounter.innerText = `Caracteres Máximos ${descInput.value.length}/150`;
+
+            // Cambia a color rojo si se alcanzan los límites
+            if (titleInput.value.length === 100) {
+                titleCounter.classList.add('error');
+            } else {
+                titleCounter.classList.remove('error');
+            }
+
+            if (descInput.value.length === 150) {
+                descCounter.classList.add('error');
+            } else {
+                descCounter.classList.remove('error');
+            }
+
+            // Actualiza el texto en la previsualización
+            document.getElementById('previewTitle').innerText = titleInput.value || 'Compra autorizada por:';
+            document.getElementById('previewDescription').innerText = descInput.value || 'Descripción';
+
+            // Valida si el botón de crear notificación debe estar habilitado
+            validateForm();
+        }
+
+        function limpiarFormulario() {
+            $('#createNotificationModal').find('input[type="text"], textarea').val(''); // Resetea los campos de texto
+            $('#iconUpload').val(''); // Limpia el input de carga de ícono
+            $('#mediaUpload').val(''); // Limpia el input de carga de medios (video o imagen)
+
+            $('#iconPreview').attr('src', '/images/default-icon.png'); // Restablece la imagen de previsualización
+            $('#previewTitle').text('Compra autorizada por:'); // Restablece el título de la previsualización
+            $('#previewDescription').text('Descripción'); // Restablece la descripción de la previsualización
+            $('#titleCounter').text('Caracteres Máximos 0/100'); // Restablece el contador de caracteres del título
+            $('#descCounter').text('Caracteres Máximos 0/150'); // Restablece el contador de caracteres de la descripción
+
+            // Restablece el área de carga de archivos a su estado inicial
+            $('#iconUploadArea').html(`
+                    <input type="file" id="iconUpload" class="d-none" accept=".jpg, .png">
+                    <label for="iconUpload" class="upload-text">
+                        <img src="/Img/iconocarga.png" alt="Upload icon" />
+                        Arrastra o <a href="javascript:void(0)">Selecciona tu archivo</a>
+                    </label>
+                    <small>JPG, PNG no mayor a 1MB</small>
+                `).removeClass('success error'); // Restablece el HTML y quita las clases de éxito/error
+
+            $('#mediaUploadArea').html(`
+                    <input type="file" id="mediaUpload" class="d-none" accept=".jpg, .png, .mp4">
+                    <label for="mediaUpload" class="upload-text">
+                        <img src="/Img/iconocarga.png" alt="Upload icon" />
+                        Arrastra o <a href="javascript:void(0)">Selecciona tu archivo</a>
+                    </label>
+                    <small>JPG, PNG o MP4 no mayor a 20MB</small>
+                `).removeClass('success error'); // Restablece el HTML y quita las clases de éxito/error
+        }
+
+        // Evento al hacer clic en el botón de cancelar
+        $('#cancelarbutton').on('click', function (event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto
+
+            // Mostrar cuadro de confirmación
+            if (confirm('¿Estás seguro de que deseas cancelar? Se perderá toda la información ingresada.')) {
+                limpiarFormulario(); // Limpiar el formulario si se confirma
+                $('#createNotificationModal').modal('hide'); // Cerrar el modal
+            }
+        });
+
+        // Asegúrate de que los eventos de carga de archivos sigan funcionando después de limpiar el formulario
+        $(document).on('change', '#iconUpload', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFileDrop(file, 'icon');
+            }
+        });
+
+        $(document).on('change', '#mediaUpload', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFileDrop(file, 'media');
+            }
+        });
+
+        function validateForm() {
+            debugger
+            var title = $('#notificationTitle').val();
+            var description = $('#notificationDescription').val();
+            var iconFile = $('#iconUpload')[0].files.length > 0; // Validar que se haya seleccionado un ícono
+
+            // Verificar si los campos requeridos están llenos
+            if (title && description && iconFile) {
+                $('#createNotificationButton').prop('disabled', false);
+            } else {
+                $('#createNotificationButton').prop('disabled', true);
+            }
+        }
+
+        // Evento para habilitar el botón de crear cuando los campos requeridos estén llenos
+        $('#notificationTitle, #notificationDescription, #iconUpload').on('input change', function () {
+            validateForm();
+        });
+
+        // Enviar los datos al hacer clic en crear notificación
+        $('#createNotificationButton').on('click', function () {
+            // Crear un objeto FormData para manejar el envío de archivos
+            var formData = new FormData();
+
+            // Obtener los valores de los inputs
+            var title = $('#notificationTitle').val();
+            var description = $('#notificationDescription').val();
+            var currentDate = new Date().toISOString(); // Obtener la fecha actual en formato ISO
+            debugger
+            // Añadir datos de texto a formData
+            formData.append('Title', title);
+            formData.append('Description', description);
+            formData.append('Date', currentDate);
+            debugger
+            // Añadir archivo de ícono (es requerido)
+            var iconFile = $('#iconUpload')[0].files[0];
+            if (iconFile) {
+                formData.append('Icon', iconFile);
+            } else {
+                alert('Debes seleccionar un ícono.');
+                return;
+            }
+
+            // Añadir archivo opcional (imagen o video)
+            var mediaFile = $('#mediaUpload')[0].files[0];
+            if (mediaFile) {
+                formData.append('Media', mediaFile);
+            }
+            debugger
+            // Enviar los datos al servidor mediante AJAX
+            $.ajax({
+                url: '/TuController/CreateNotification', // Cambia por tu ruta real
+                type: 'POST',
+                data: formData,
+                processData: false, // Evita que jQuery procese los datos
+                contentType: false, // Evita que jQuery establezca el contentType
+                success: function (response) {
+                    // Aquí manejas la respuesta del servidor
+                    if (response.success) {
+                        alert('Notificación creada con éxito');
+                        $('#createNotificationModal').modal('hide'); // Cerrar el modal
+                    } else {
+                        alert('Error al crear la notificación');
+                    }
+                },
+                error: function (error) {
+                    console.log('Error en la petición AJAX', error);
+                }
+            });
+        });
 
     </script>
 
 </body>
 </html>
-
-<!-- Modal para Editar -->
-<div id="modalEdit" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Editar Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- El contenido de edición se cargará aquí -->
-                <p>Cargando...</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal para Ver Detalle -->
-<div id="modalDetail" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detalles del Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- El contenido de detalles se cargará aquí -->
-                <p>Cargando...</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

@@ -13,12 +13,101 @@ using System.Drawing;
 using MediaInfo.DotNetWrapper;
 using MediaInfo.DotNetWrapper.Enumerations;
 using Microsoft.AspNetCore.OutputCaching;
+using System.Text.Json;
 
 
 namespace Pract_CargaMasv.Controllers
 {
     public class ExportarController : Controller
     {
+
+        //ApiTokenBkol
+        //public async Task<ActionResult> Exportar(int page = 1, int recordsPerPage = 10)
+        //{
+        //    List<Modelos.Usuario> usuarios = new();
+        //    int totalRegistros = 0;
+
+        //    try
+        //    {
+
+        //        using var httpClient = new HttpClient();
+        //        string apiUrl = "https://tu-api-url.com/api/usuarios";
+        //        string token = "tu-token-aqui";
+        //        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+        //        // Si necesitas otros encabezados, los agregas de esta forma:
+        //        httpClient.DefaultRequestHeaders.Add("Custom-Header", "HeaderValue");
+        //        HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var jsonResponse = await response.Content.ReadAsStringAsync();
+        //            Console.WriteLine(jsonResponse);
+
+        //            // Configurar opciones para la deserialización
+        //            var options = new JsonSerializerOptions
+        //            {
+        //                PropertyNameCaseInsensitive = true
+        //            };
+
+        //            var apiData = JsonSerializer.Deserialize<List<Modelos.Usuario>>(jsonResponse, options);
+
+        //            if (apiData != null)
+        //            {
+        //                usuarios = apiData.Select(apiUsuario => new Modelos.Usuario
+        //                {
+        //                    IdBa = apiUsuario.IdBa,
+        //                    Nombre = apiUsuario.Nombre,
+        //                    ApellidoP = apiUsuario.ApellidoP,
+        //                    ApellidoM = apiUsuario.ApellidoM
+        //                }).ToList();
+
+        //                totalRegistros = usuarios.Count;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ViewBag.Error = "Error al consumir la API.";
+        //            return View();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error al deserializar: {ex.Message}");
+        //        ViewBag.Error = "Error al procesar los datos de la API.";
+        //        return View();
+        //    }
+
+        //    if (recordsPerPage == 0)
+        //    {
+        //        recordsPerPage = totalRegistros;
+        //    }
+
+        //    var registrosPorPaginaOpciones = new List<int>();
+        //    for (int i = 10; i < totalRegistros; i += 10)
+        //    {
+        //        registrosPorPaginaOpciones.Add(i);
+        //    }
+        //    registrosPorPaginaOpciones.Add(totalRegistros);
+
+        //    var pagedUsuarios = usuarios
+        //        .Skip((page - 1) * recordsPerPage)
+        //        .Take(recordsPerPage)
+        //        .ToList();
+
+        //    var model = new Modelos.UsuarioViewModel
+        //    {
+        //        ListUsuarios = pagedUsuarios,
+        //        CurrentPage = page,
+        //        TotalPages = (int)Math.Ceiling(totalRegistros / (double)recordsPerPage),
+        //        TotalRegistros = totalRegistros,
+        //        RegistrosPorPagina = recordsPerPage,
+        //        RegistrosPorPaginaOpciones = registrosPorPaginaOpciones
+        //    };
+
+        //    return View(model);
+        //}
+
+
         //public ActionResult Exportar()
         //{
 
@@ -35,7 +124,7 @@ namespace Pract_CargaMasv.Controllers
         //    }
         //}
 
-        
+
         public ActionResult Exportar(int page = 1, int recordsPerPage = 10)
         {
             Modelos.Usuario usuario = new Modelos.Usuario();
@@ -82,7 +171,28 @@ namespace Pract_CargaMasv.Controllers
             }
         }
 
+        public IActionResult CrearNotificacionPush()
+        {
+            return View(); // Retorna la vista de crear notificación
+        }
 
+
+        [HttpPost]
+        public IActionResult UploadFile(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                // Guarda el archivo o realiza alguna acción aquí.
+                // Puedes guardarlo en una carpeta del servidor, base de datos, etc.
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "C:\\Users\\PC FACTOR WHITE\\Documents\\Practicas\\Barber Alejandro\\CargasMasiva\\Pract_CargaMasv\\Pract_CargaMasv\\wwwroot\\Img\\", file.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                return Ok(new { status = "success", message = "File uploaded successfully" });
+            }
+            return BadRequest(new { status = "error", message = "File upload failed" });
+        }
 
 
 

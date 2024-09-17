@@ -21,6 +21,7 @@ body {
   margin-bottom: 60px;
 }
 
+
 /*Fuentes Poppins*/
 @font-face {
     font-family: 'Poppins';
@@ -60,22 +61,6 @@ body {
     font-style: normal;
 }
 
-
-
-
-.tabla-detalle {
-    margin: 0;
-    padding: 0;
-    border-collapse: collapse; /* Opcional: Elimina el espacio entre las celdas */
-}
-
-    .tabla-detalle td, .tabla-detalle th {
-        margin: 0;
-        padding: 0;
-        border: none; /* Elimina los bordes si no los necesitas */
-    }
-
-
 /* Estilo básico para los íconos */
 .icono-accion {
     color: white; /* Color inicial del ícono */
@@ -88,81 +73,6 @@ body {
     .icono-accion:hover {
         color: #007bff; /* Color al hacer hover (azul) */
     }
-
-.detalle-usuario-modal {
-    background-color:slategrey; /* Ruta de tu imagen */ 
-    background-size: cover;
-    background-position: center;
-    color: white; /* Color de texto */
-    text-align: center;
-    padding: 20px; /* Espaciado interno */
-    border-radius: 10px; /* Bordes redondeados opcionales */
-}
-
-    .detalle-usuario-modal .modal-header,
-    .detalle-usuario-modal .modal-footer {
-        border: none; /* Quitar bordes del header y footer */
-    }
-
-    .detalle-usuario-modal .modal-body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 200px; /* Altura mínima para centrar el contenido */
-        padding: 20px;
-    }
-
-    /* Centrar el botón Aceptar */
-    .detalle-usuario-modal .modal-footer {
-        justify-content: center;
-    }
-
-    /* Opcional: Ajustar el color del botón para que combine con el diseño */
-    .detalle-usuario-modal .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-.titulo-detalle {
-    font-family: Arial, sans-serif;
-    color: whitesmoke;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.detalle-texto-inicio {
-    font-family: Verdana, sans-serif;
-    color: gainsboro;
-    font-size: 18px;
-    text-align: initial;
-}
-.detalle-texto-center {
-    font-family: Verdana, sans-serif;
-    color: gainsboro;
-    font-size: 18px;
-    text-align: end;
-}
-.detalle-usuario img {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-}
-
-.detalle-usuario video {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-}
-
-.custom-modal-size .modal-dialog {
-    max-width: 95%; /* Ajusta el ancho máximo del modal */
-    margin: 30px auto; /* Opcional: Ajusta el margen vertical del modal */
-}
-
-.custom-modal-size .modal-content {
-    /* Puedes ajustar más estilos aquí si es necesario */
-}
-
 
 /* General Table Styling */
 table {
@@ -428,28 +338,7 @@ tbody tr {
     align-items: center;
 }
 
-/* Estilo del selector de registros */
-.records-dropdown {
-    font-family: Figtree-BolNegritas,sans-serif;
-    font-weight: bold; /* Texto en negrita */
-    border: 2px solid #000; /* Contorno negro */
-    padding: 5px 15px;
-    border-radius: 50px; /* Bordes redondeados, opcional */
-    background-color: white; /* Fondo blanco */
-    color: #333; /* Color del texto dentro del selector */
-    font-size: 14px;
-    appearance: none; /* Elimina el estilo predeterminado del navegador */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer; /* Cambia el cursor a pointer para indicar que es interactivo */
-}
 
-    /* Cambios en el borde cuando el selector está en hover o enfoque */
-    .records-dropdown:hover,
-    .records-dropdown:focus {
-        border-color: grey; /* Color azul cuando el mouse está sobre el selector o tiene foco */
-        /*box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);*/ /* Resplandor azul cuando se enfoca */
-    }
 
 #record-count {
     font-family: Figtree-LiNormal,sans-serif;
@@ -543,3 +432,233 @@ tbody tr {
         background-color: #218838; /* Color verde más oscuro en hover */
         text-decoration: none;
     }
+
+    /*MODAL CREATE*/
+/* Área de carga de archivos */
+.upload-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.upload-text {
+    font-size: 14px;
+    color: #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-area img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+/* Estados de éxito y error al cargar archivos */
+.upload-area.success {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.upload-area.error {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+    /* Indicador de estado de carga, puedes eliminar esto si no lo usas */
+    .upload-area.success::before,
+    .upload-area.error::before {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+    }
+
+/* Título de sección y divisor */
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section-divider {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+    margin-left: 10px;
+}
+
+/* Vista de previsualización de notificación */
+.notification-preview {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.notification-icon img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.notification-content {
+    max-width: 200px;
+    overflow: hidden;
+    border: none; /* Asegúrate de que no haya borde en el contenedor principal */
+    box-shadow: none; /* Elimina cualquier sombra que pueda estar causando la línea */
+}
+
+.notification-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0; /* Cambia margin-top por padding si es necesario */
+    padding-bottom: 10px; /* Añade padding si es necesario */
+}
+
+.notification-description {
+    margin-top: 5px;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Errores de validación */
+.text-end small.error {
+    color: red;
+}
+
+/* Indicador circular verde */
+.green-circle {
+    height: 10px;
+    width: 10px;
+    background-color: #28a745;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* Estilos para inputs y textareas con borde inferior */
+.form-control {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+}
+
+    .form-control:focus {
+        border-bottom-color: #007bff; /* Cambiar color del borde inferior al hacer foco */
+        outline: none;
+        box-shadow: none;
+    }
+
+/* Ajuste para que los textboxes sean responsivos */
+.input-size {
+    width: 100%; /* Asegura que los inputs tomen el 100% del ancho disponible */
+    max-width: 100%; /* Previene que excedan el contenedor */
+    height: 50px; /* Ajusta la altura según tus preferencias */
+    box-sizing: border-box; /* Asegura que el padding no incremente el tamaño total */
+}
+
+.form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.text-end small {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.form-control::placeholder {
+    color: #ccc;
+}
+
+textarea.form-control {
+    resize: none; /* Para evitar que el textarea se pueda redimensionar */
+}
+
+/* Estructura de la barra de selección de pestañas */
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 0px solid #ccc;
+}
+
+    .notification-header h5 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+/* Barra de pestañas de Notificación push y Notificación en listado */
+.notification-tabs {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 10px;
+}
+
+    .notification-tabs .tab {
+        flex: 1;
+        text-align: center;
+        padding-bottom: 10px;
+        font-size: 16px;
+        color: #999; /* Color gris */
+        text-decoration: none;
+        position: relative;
+    }
+
+        .notification-tabs .tab.active {
+            font-weight: bold;
+            color: #000; /* Color negro para el tab activo */
+        }
+
+        .notification-tabs .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent; /* Fondo transparente por defecto */
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-tabs .tab.active::after {
+            background-color: #000; /* Línea negra para el tab activo */
+        }
+
+        .notification-tabs .tab:hover {
+            color: #000; /* Cambia el color a negro al pasar el ratón */
+        }
+
+/* Contenedor principal y ajustable */
+.notification-container {
+    max-width: 961px; /* Máximo ancho del contenedor */
+    margin: 0 auto; /* Centra el contenedor */
+    padding: 0 15px; /* Espaciado interno */
+}
+
+@media (max-width: 1024px) {
+    .notification-container {
+        padding: 0 10px; /* Ajuste de padding para pantallas más pequeñas */
+    }
+
+    .input-size {
+        height: auto; /* Altura automática para pantallas pequeñas */
+    }
+}
+
+

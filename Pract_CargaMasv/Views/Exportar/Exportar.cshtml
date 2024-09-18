@@ -298,16 +298,15 @@
         const mediaUploadArea = document.getElementById('mediaUploadArea');
         const iconInput = document.getElementById('iconUpload');
         const mediaInput = document.getElementById('mediaUpload');
-
-        // Manejar el evento de cambio en el input de archivo (para seleccionar archivo manualmente)
+        
         iconInput.addEventListener('change', function (event) {
-            const file = event.target.files[0];  // Obtener el archivo seleccionado
-            handleFileDrop(file, 'icon');  // Llamar a la función para manejar el archivo
+            const file = event.target.files[0];  
+            handleFileDrop(file, 'icon');  
         });
 
         mediaInput.addEventListener('change', function (event) {
-            const file = event.target.files[0];  // Obtener el archivo seleccionado
-            handleFileDrop(file, 'media');  // Llamar a la función para manejar el archivo
+            const file = event.target.files[0];  
+            handleFileDrop(file, 'media');  
         });
 
         // Prevenir comportamiento por defecto para evitar que el navegador abra el archivo
@@ -325,12 +324,12 @@
         // Manejar el evento de soltar el archivo (drop)
         iconUploadArea.addEventListener('drop', function (event) {
             const file = event.dataTransfer.files[0];
-            handleFileDrop(file, 'icon'); // Llamar a la función para manejar el archivo
+            handleFileDrop(file, 'icon'); 
         });
 
         mediaUploadArea.addEventListener('drop', function (event) {
             const file = event.dataTransfer.files[0];
-            handleFileDrop(file, 'media'); // Llamar a la función para manejar el archivo
+            handleFileDrop(file, 'media');
         });
 
         // Función para prevenir el comportamiento por defecto
@@ -345,7 +344,6 @@
             const uploadArea = type === 'icon' ? $('#iconUploadArea') : $('#mediaUploadArea');
             const iconPreview = $('#iconPreview');
 
-            // Validaciones para el ícono (solo PNG, JPG, menor a 1MB)
             if (type === 'icon') {
                 if (file && validIconFormats.includes(file.type) && file.size <= 1 * 1024 * 1024) {  // Archivo menor a 1MB y formato correcto
                     mostrarAnimacionDeCarga(uploadArea, file, true);
@@ -355,7 +353,6 @@
                 }
             }
 
-            // Validaciones para la imagen/video (solo PNG, JPG, MP4, menor a 20MB)
             if (type === 'media') {
                 if (file && validMediaFormats.includes(file.type) && file.size <= 20 * 1024 * 1024) {  // Archivo menor de 20MB y formato correcto
                     mostrarAnimacionDeCarga(uploadArea, file, true);
@@ -395,7 +392,6 @@
             }, 1000);  // Esto asegura que se vuelva a activar tras la carga de la animación
         }
 
-        // Evento para manejar la selección de archivo desde el input
         $(document).on('change', '#iconUpload', function (event) {
             const file = event.target.files[0];
             if (file) {
@@ -595,7 +591,6 @@
             }
         });
 
-        // Asegúrate de que los eventos de carga de archivos sigan funcionando después de limpiar el formulario
         $(document).on('change', '#iconUpload', function (event) {
             const file = event.target.files[0];
             if (file) {

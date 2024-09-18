@@ -436,14 +436,27 @@ tbody tr {
     /*MODAL CREATE*/
 /* Área de carga de archivos */
 .upload-area {
-    border: 2px dashed #ccc;
+    border: 2px dashed #ccc; /* Borde gris por defecto */
     padding: 20px;
     text-align: center;
     position: relative;
     background-color: #f9f9f9;
     border-radius: 10px;
     cursor: pointer;
+    transition: border-color 0.3s ease; /* Transición suave en el cambio de color */
 }
+
+    .upload-area.loading {
+        border-color: #007bff; /* Cambiar borde a azul durante la carga */
+    }
+
+    .upload-area.success {
+        border-color: #28a745; /* Borde verde al tener éxito */
+    }
+
+    .upload-area.error {
+        border-color: #dc3545; /* Borde rojo si hay error */
+    }
 
 .upload-text {
     font-size: 14px;
@@ -457,27 +470,61 @@ tbody tr {
     width: 30px;
     margin-right: 10px;
 }
-
-/* Estados de éxito y error al cargar archivos */
-.upload-area.success {
-    border-color: #28a745;
-    color: #28a745;
+.file-info {
+    margin-top: 10px;
+    text-align: left;
+    color: #007bff;
+}
+.reemplazar-archivo {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.upload-area.error {
-    border-color: #dc3545;
-    color: #dc3545;
+    .reemplazar-archivo:hover {
+        text-decoration: underline;
+    }
+.loading-content {
+    display: flex;
+    align-items: center;
 }
 
-    /* Indicador de estado de carga, puedes eliminar esto si no lo usas */
-    .upload-area.success::before,
-    .upload-area.error::before {
-        position: absolute;
-        top: 50%;
-        left: 10px;
-        transform: translateY(-50%);
+.icono-cargando {
+    width: 20px; /* Ajusta el tamaño del icono según sea necesario */
+    margin-right: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.progress {
+    height: 100%;
+    background-color: #007bff; /* Color azul de la barra de progreso */
+    width: 0%;
+    transition: width 0.2s ease;
+}
+ /*texto selecciona*/
+.gray-text {
+    color: #6c757d; /* Color gris para el texto "Arrastra o" */
+}
+.blue-text {
+    color: #007bff; /* Color azul para el texto del enlace */
+    text-decoration: none; /* Elimina el subrayado del enlace si no lo deseas */
+}
+
+    .blue-text:hover {
+        text-decoration: underline; /* Subraya el texto al pasar el cursor */
     }
 
+.dragging {
+    border-color: #007bff;
+    background-color: #e9f7ff;
+}
 /* Título de sección y divisor */
 .section-title {
     display: flex;
@@ -615,7 +662,7 @@ textarea.form-control {
         text-align: center;
         padding-bottom: 10px;
         font-size: 16px;
-        color: #999; /* Color gris */
+        color: #999; /* Color gris para el tab inactivo */
         text-decoration: none;
         position: relative;
     }
@@ -649,6 +696,10 @@ textarea.form-control {
     max-width: 961px; /* Máximo ancho del contenedor */
     margin: 0 auto; /* Centra el contenedor */
     padding: 0 15px; /* Espaciado interno */
+    border-radius: 15px; /* Añade bordes redondeados */
+    background-color: #fff; /* Asegúrate de tener un fondo blanco para que se vea bien */
+    border: 1px solid #ddd; /* Añade un borde para que se destaque */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Añade sombra si lo deseas */
 }
 
 @media (max-width: 1024px) {
@@ -661,4 +712,53 @@ textarea.form-control {
     }
 }
 
+/*Estilos botones crear notificacion*/
+.button-rounded {
+    background-color: white; /* Color de fondo */
+    border: 2px solid black; /* Borde negro de 2px */
+    border-radius: 50px; /* Bordes redondeados */
+    padding: 10px 30px; /* Espaciado interno para hacerlo más grande */
+    font-size: 16px; /* Tamaño de texto */
+    font-weight: bold; /* Texto en negritas */
+    color: black; /* Color del texto */
+    cursor: pointer; /* Cambia el cursor a pointer */
+    transition: background-color 0.3s ease; /* Transición suave para cambios */
+}
 
+    .button-rounded:hover {
+        background-color: #f0f0f0; /* Color de fondo al pasar el cursor */
+    }
+
+    .button-rounded:active {
+        background-color: #e0e0e0; /* Color de fondo al hacer clic */
+        border-color: #333; /* Cambiar color de borde al hacer clic */
+    }
+/* boton de siguiente */
+    .button-rounded:disabled {
+        background-color: #d3d3d3; /* Color gris cuando está deshabilitado */
+        border-color: #a9a9a9; /* Borde gris más oscuro */
+        color: #808080; /* Color del texto gris */
+        cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+    }
+/*Linea divisora negra inferior */
+.line-above-buttons {
+    border-top: 2px solid black; /* Línea negra de 2px */
+    margin: 20px 0; /* Espaciado superior e inferior */
+    width: 100%; /* Asegura que ocupe el ancho del contenedor */
+}
+
+/*notificacion listado*/
+.tab.disabled {
+    pointer-events: none; /* Deshabilita la interacción con el enlace */
+    color: #ccc; /* Cambia el color a gris para que parezca deshabilitado */
+    cursor: not-allowed; /* Cambia el cursor a una señal de "no permitido" */
+}
+
+.tab {
+    color: #999; /* Color predeterminado de los tabs */
+    text-decoration: none;
+}
+
+    .tab:hover {
+        color: #000; /* Color al pasar el ratón sobre tabs activos */
+    }

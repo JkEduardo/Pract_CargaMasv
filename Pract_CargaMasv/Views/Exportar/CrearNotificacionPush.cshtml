@@ -8,25 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="~/css/site.css"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    @* <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet"> *@
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Dropzone.js CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css" rel="stylesheet">
-
-    <!-- Dropzone.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 
 
 </head>
 <body>
     
-
     <div class="container notification-container">
-        <!-- Título de la vista y pestañas -->
         <div class="row">
             <div class="col-md-12">
                 <h1 class="notification-title">Crear nueva notificación</h1>
@@ -35,109 +26,411 @@
         <div class="notification-header">
             <div class="notification-tabs">
                 <a href="javascript:void(0);" class="tab active" id="pushTab" onclick="showPushNotification()">Notificación push</a>
-                <a href="javascript:void(0);" class="tab" id="listTab" onclick="showListNotification()">Notificación en listado</a>
+                <a href="javascript:void(0);" class="tab disabled" id="listTab" onclick="showListNotification()">Notificación en listado</a>
             </div>
         </div>
 
-        <!-- Contenido del formulario (Notificación push por defecto) -->
-        <div class="row">
-            <!-- Columna izquierda: Formulario -->
-            <div class="col-md-7">
-                <div class="mb-3">
-                    <label for="notificationTitle" class="form-label">Título de notificación</label>
-                    <input type="text" class="form-control input-size" id="notificationTitle" maxlength="100" placeholder="Compra autorizada por:" oninput="updatePreview()">
-                    <div class="text-end"><small id="titleCounter">Caracteres Máximos 0/100</small></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="notificationDescription" class="form-label">Descripción</label>
-                    <textarea class="form-control input-size" id="notificationDescription" rows="3" maxlength="150" placeholder="Descripción" oninput="updatePreview()"></textarea>
-                    <div class="text-end"><small id="descCounter">Caracteres Máximos 0/150</small></div>
-                </div>
-
-                <!-- Nuevo input de estatus -->
-                <div class="mb-3">
-                    <label for="notificationStatus" class="form-label">Selecciona el estatus</label>
-                    <select class="form-control input-size" id="notificationStatus">
-                        <option value="" disabled selected>Selecciona el estatus</option>
-                        <option value="1">Activa</option>
-                        <option value="0">Inactiva</option>
-                    </select>
-                </div>
-                
-            </div>
-
-            <!-- Columna derecha: Previsualización -->
-            <div class="col-md-5">
-                <div class="notification-preview">
-                    <div class="notification-icon">
-                        
+        <!-- Formulario de Notificación push -->
+        <div id="form-push" class="form-section">
+            <div class="row">
+                <!-- Columna izquierda: Formulario -->
+                <div class="col-md-7">
+                    <div class="mb-3">
+                        <label for="notificationTitlePush" class="form-label">Título de notificación</label>
+                        <textarea class="form-control input-size" id="notificationTitlePush" rows="3" maxlength="100" placeholder="Compra Autorizada por..." oninput="updatePushPreview()"></textarea>
+                        <div class="text-end"><small id="titleCounterPush">Caracteres Máximos 0/100</small></div>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="notificationDescriptionPush" class="form-label">Descripción</label>
+                        <textarea class="form-control input-size" id="notificationDescriptionPush" rows="3" maxlength="150" placeholder="Descripción" oninput="updatePushPreview()"></textarea>
+                        <div class="text-end"><small id="descCounterPush">Caracteres Máximos 0/150</small></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notificationStatusPush" class="form-label">Status</label>
+                        <select class="form-control input-size" id="notificationStatusPush" onchange="checkPushFormCompletion()">
+                            <option value="" disabled selected>Selecciona el estatus</option>
+                            <option value="1">Activa</option>
+                            <option value="0">Inactiva</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="iconUploadPush" class="form-label">Sube un icono (opcional) </label>
+                        <div class="upload-area" id="iconUploadAreapush">
+                            <input type="file" id="iconUploadPush" class="d-none" accept=".jpg, .png" onchange="checkPushFormCompletion()">
+                            <label for="iconUploadPush" class="upload-text">
+                                <img src="/Img/iconocarga.png" alt="Upload icon" />
+                                <span class="gray-text"> Arrastra o &nbsp; </span>
+                                <a href="javascript:void(0)" onclick="document.getElementById('iconUploadPush').click()" class="blue-text"> Selecciona tu archivo</a>
+                            </label>
+                            <small>JPG, PNG no mayor a 1MB</small>
+
+                            <div class="file-info" id="fileInfoPush" style="display: none;">
+                                <span id="fileNamePush"></span>
+                                <div class="progress-bar">
+                                    <div class="progress" id="progressPush"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <hr class="line-above-buttons">
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 text-end">
+                    <button type="button" class="button-rounded" id="cancelarButonPush" onclick="">Cancelar</button>
+                    <button type="button" class="button-rounded" id="siguienteButtonPush" disabled onclick="showListForm()">Siguiente</button>
                 </div>
             </div>
+            <br /><br />
         </div>
 
-        <!-- Botones de acción -->
-        <div class="row mt-3">
-            <div class="col-md-12 text-end">
-                <button type="button" class="btn btn-secondary" id="cancelarbutton">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="createNotificationButton" disabled>Crear notificación</button>
+        <!-- Formulario de Notificación en listado -->
+        <div id="form-listado" class="form-section" style="display: none;">
+            <div class="row">
+                <!-- Columna izquierda: Formulario -->
+                <div class="col-md-7">
+                    <div class="mb-3">
+                        <label for="notificationTitleListado" class="form-label">Título de notificación</label>
+                        <textarea class="form-control input-size" id="notificationTitleListado" rows="3" maxlength="100" placeholder="Compra autorizada por:" oninput="updateListadoPreview()"></textarea>
+                        @* <input type="text" class="form-control input-size" id="notificationTitleListado" maxlength="100" placeholder="Compra autorizada por:" oninput="updateListadoPreview()"> *@
+                        <div class="text-end"><small id="titleCounterListado">Caracteres Máximos 0/100</small></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notificationDescriptionListado" class="form-label">Descripción</label>
+                        <textarea class="form-control input-size" id="notificationDescriptionListado" rows="3" maxlength="150" placeholder="Descripción" oninput="updateListadoPreview()"></textarea>
+                        <div class="text-end"><small id="descCounterListado">Caracteres Máximos 0/150</small></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="iconUploadListado" class="form-label">Sube un icono</label>
+                        <div class="upload-area" id="iconUploadAreaListado">
+                            <input type="file" id="iconUploadListado" class="d-none" accept=".jpg, .png" onchange="checkListadoFormCompletion()">
+                            <label for="iconUploadListado" class="upload-text">
+                                <img src="/Img/iconocarga.png" alt="Upload icon" />
+                                <span class="gray-text"> Arrastra o &nbsp; </span>
+                                <a href="javascript:void(0)" onclick="document.getElementById('iconUploadListado').click()" class="blue-text"> Selecciona tu archivo</a>
+                            </label>
+                            <small>JPG, PNG no mayor a 1MB</small>
+                            <div class="file-info" id="fileInfoListado" style="display: none;">
+                                <span id="fileNameListado"></span>
+                                <div class="progress-bar">
+                                    <div class="progress" id="progressListado"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mediaUploadListado" class="form-label">Sube un video o imagen (opcional)</label>
+                        <div class="upload-area" id="mediaUploadAreaListado">
+                            <input type="file" id="mediaUploadListado" class="d-none" accept=".jpg, .png, .mp4" onchange="checkListadoFormCompletion()">
+                            <label for="mediaUploadListado" class="upload-text">
+                                <img src="/Img/iconocarga.png" alt="Upload icon" />
+                                <span class="gray-text"> Arrastra o &nbsp; </span>
+                                <a href="javascript:void(0)" onclick="document.getElementById('mediaUploadListado').click()" class="blue-text"> Selecciona tu archivo</a>
+                            </label>
+                            <small>JPG, PNG o MP4 no mayor a 20MB</small>
+                            <div class="file-info" id="fileInfoMedia" style="display: none;">
+                                <span id="fileNameMedia"></span>
+                                <div class="progress-bar">
+                                    <div class="progress" id="progressMedia"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12 text-end">
+                    <button type="button" class="btn btn-primary" id="createNotificationButtonListado" disabled>Crear notificación</button>
+                </div>
+            </div>
+            <br /><br />
         </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-            function showPushNotification() {
-                document.getElementById('pushTab').classList.add('active');
-                document.getElementById('listTab').classList.remove('active');
-                // Aquí puedes agregar lógica para mostrar el contenido de la vista "Notificación push"
-            }
+        /* Funcionalidad Forms Notificaciones Push y Listado BEGIN */
 
-            function showListNotification() {
+        function showListForm() {
                 document.getElementById('pushTab').classList.remove('active');
                 document.getElementById('listTab').classList.add('active');
-                // Aquí puedes agregar lógica para mostrar el contenido de la vista "Notificación en listado"
+                document.getElementById('form-push').style.display = 'none';
+                document.getElementById('form-listado').style.display = 'block';
             }
 
-        // Función para habilitar o deshabilitar el botón de Crear Notificación
-        $('#titulo, #descripcion, #estatus').on('input change', function () {
-            let titulo = $('#titulo').val();
-            let descripcion = $('#descripcion').val();
-            let estatus = $('#estatus').val();
+        function showPushNotification() {
+            document.getElementById('pushTab').classList.add('active');
+            document.getElementById('listTab').classList.remove('active');
+            document.getElementById('form-push').style.display = 'block';
+            document.getElementById('form-listado').style.display = 'none';
+        }
 
-            if (titulo && descripcion && estatus) {
-                $('#btnCrear').prop('disabled', false);
+        function showListNotification() {
+            document.getElementById('pushTab').classList.remove('active');
+            document.getElementById('listTab').classList.add('active');
+            document.getElementById('form-push').style.display = 'none';
+            document.getElementById('form-listado').style.display = 'block';
+        }
+
+        function checkPushFormCompletion() {
+            const title = document.getElementById('notificationTitlePush').value;
+            const description = document.getElementById('notificationDescriptionPush').value;
+            const status = document.getElementById('notificationStatusPush').value;
+
+            const siguienteButton = document.getElementById('siguienteButtonPush');
+            const listTab = document.getElementById('listTab');
+
+            if (title && description && status) {
+                siguienteButton.disabled = false;  // Habilita el botón "Siguiente"
+                listTab.classList.remove('disabled'); // Habilita el enlace "Notificación en listado"
             } else {
-                $('#btnCrear').prop('disabled', true);
+                siguienteButton.disabled = true;   // Deshabilita el botón "Siguiente"
+                listTab.classList.add('disabled');  // Deshabilita el enlace "Notificación en listado"
+            }
+        }
+
+        function checkListadoFormCompletion() {
+            const title = document.getElementById('notificationTitleListado').value;
+            const description = document.getElementById('notificationDescriptionListado').value;
+            const icon = document.getElementById('iconUploadListado').value;
+
+            if (title && description && icon) {
+                document.getElementById('createNotificationButtonListado').disabled = false;
+            } else {
+                document.getElementById('createNotificationButtonListado').disabled = true;
+            }
+        }
+        /* Funcionalidad Forms Notificaciones Push y Listado END */
+        /* Validación de caracteres de riesgo y texto rojo */
+        var riskChars = /[!#$%&'()*+,.\/:;<=>?@@[\\\]^_`{|}~"'-]/g;
+
+        function blockRiskChars(inputElement, counterElement, maxLength) {
+            $(inputElement).on('input', function () {
+                var value = $(this).val();
+
+                // Remueve los caracteres de riesgo si son ingresados
+                if (riskChars.test(value)) {
+                    $(this).val(value.replace(riskChars, ''));
+                }
+                var length = $(this).val().length;
+                $(counterElement).text('Caracteres Máximos ' + length + '/' + maxLength);
+            });
+        }
+        blockRiskChars('#notificationTitlePush', '#titleCounterPush', 100);
+        blockRiskChars('#notificationDescriptionPush', '#descCounterPush', 150);
+
+        blockRiskChars('#notificationTitleListado', '#titleCounterListado', 100);
+        blockRiskChars('#notificationDescriptionListado', '#descCounterListado', 150);
+
+        /* Función para actualizar la previsualización de Notificación Push y listado */
+        function updatePushPreview() {
+            const titleInput = document.getElementById('notificationTitlePush');
+            const descInput = document.getElementById('notificationDescriptionPush');
+            const titleCounter = document.getElementById('titleCounterPush');
+            const descCounter = document.getElementById('descCounterPush');
+            titleCounter.innerText = `Caracteres Máximos ${titleInput.value.length}/100`;
+            descCounter.innerText = `Caracteres Máximos ${descInput.value.length}/150`;
+
+            // Cambia a color rojo si se alcanzan los límites
+            if (titleInput.value.length === 100) {
+                titleCounter.classList.add('error');
+            } else {
+                titleCounter.classList.remove('error');
+            }
+
+            if (descInput.value.length === 150) {
+                descCounter.classList.add('error');
+            } else {
+                descCounter.classList.remove('error');
+            }
+
+        }
+        function updateListadoPreview() {
+            const titleInput = document.getElementById('notificationTitleListado');
+            const descInput = document.getElementById('notificationDescriptionListado');
+            const titleCounter = document.getElementById('titleCounterListado');
+            const descCounter = document.getElementById('descCounterListado');
+
+            titleCounter.innerText = `Caracteres Máximos ${titleInput.value.length}/100`;
+            descCounter.innerText = `Caracteres Máximos ${descInput.value.length}/150`;
+
+            // Cambia a color rojo si se alcanzan los límites
+            if (titleInput.value.length === 100) {
+                titleCounter.classList.add('error');
+            } else {
+                titleCounter.classList.remove('error');
+            }
+
+            if (descInput.value.length === 150) {
+                descCounter.classList.add('error');
+            } else {
+                descCounter.classList.remove('error');
+            }
+
+        }
+
+        // Áreas de carga y sus inputs
+        const iconUploadAreaPush = document.getElementById('iconUploadAreapush');
+        const iconUploadAreaListado = document.getElementById('iconUploadAreaListado');
+        const mediaUploadAreaListado = document.getElementById('mediaUploadAreaListado');
+        const iconInputPush = document.getElementById('iconUploadPush');
+        const iconInputListado = document.getElementById('iconUploadListado');
+        const mediaInputListado = document.getElementById('mediaUploadListado');
+
+        // Función para prevenir comportamientos por defecto
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Función para manejar la animación de carga y el progreso
+        function mostrarAnimacionDeCarga(uploadArea, file, isSuccess, sizeLimit = '', allowedFormats = '') {
+            // Cambia el borde punteado a azul y elimina clases anteriores
+            uploadArea.removeClass('loading success error');
+            uploadArea.addClass('loading');
+            uploadArea.css('border-color', '#007bff');  // Cambiar borde a azul durante la carga
+
+            // Mostrar el icono de carga junto con el nombre del archivo al iniciar la carga
+            uploadArea.html(`
+                <div class="loading-content">
+                    <img src="/Img/cargandoArchivo.png" alt="Cargando archivo" class="icono-cargando" />
+                    <span>${file.name}</span>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+            `);
+
+            // Simulación del progreso de la carga (para propósitos de demostración)
+            let progress = 0;
+            const interval = setInterval(function () {
+                progress += 10; // Incrementar el progreso de carga
+                $('.progress').css('width', progress + '%'); // Actualizar la barra de progreso
+
+                if (progress >= 100) {
+                    clearInterval(interval); // Detener la simulación al llegar al 100%
+                    uploadArea.removeClass('loading');
+                    uploadArea.css('border-color', isSuccess ? '#28a745' : '#dc3545');  // Verde si tiene éxito, rojo si hay error
+
+                    if (isSuccess) {
+                        uploadArea.addClass('success');
+                        uploadArea.html(`
+                            <img src="/Img/cargaexitosa.png" alt="Success icon" /> ${file.name} cargado correctamente
+                        `);
+                    } else {
+                        uploadArea.addClass('error');
+                        uploadArea.html(`
+                            <img src="/Img/cargaerror.png" alt="Error icon" /> Archivo no válido. Seleccione un archivo de tipo ${allowedFormats} menor a ${sizeLimit}
+                            <a href="javascript:void(0)" class="selecciona-archivo">Selecciona tu archivo</a>
+                        `);
+                    }
+
+                    // Reactivar el evento de clic en el enlace "Selecciona tu archivo"
+                    $('.selecciona-archivo').on('click', function () {
+                        const inputSelector = uploadArea.attr('id') === 'iconUploadAreapush' ? '#iconUploadPush' : (uploadArea.attr('id') === 'iconUploadAreaListado' ? '#iconUploadListado' : '#mediaUploadListado');
+                        $(inputSelector).click();  // Activa el clic en el input de archivo
+                    });
+                }
+            }, 200);
+        }
+
+        // Vincular los eventos de change a los inputs de archivo para la selección manual
+        $(document).on('change', '#iconUploadPush', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                startFileUploadPush(this);
             }
         });
 
-        // Función para cancelar y regresar a la página de listado
-        function cancelar() {
-            // Limpiar los campos
-            $('#titulo').val('');
-            $('#descripcion').val('');
-            $('#estatus').val('');
-            $('#imagen').val('');
+        $(document).on('change', '#iconUploadListado', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                startFileUploadListado(this);
+            }
+        });
 
-            // Redirigir a la página de listado
-            window.location.href = '/Notificaciones/Listado';
+        $(document).on('change', '#mediaUploadListado', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                startFileUploadMedia(this);
+            }
+        });
+
+        // Funciones para iniciar la carga en las diferentes áreas
+        function startFileUploadPush(input) {
+            const file = input.files[0];
+            if (file) {
+                mostrarAnimacionDeCarga($('#iconUploadAreapush'), file, true);
+            }
         }
 
-        // Función para crear la notificación
-        function crearNotificacion() {
-            // Aquí podrías realizar la lógica de envío de datos al servidor
-            alert('Notificación creada!');
+        function startFileUploadListado(input) {
+            const file = input.files[0];
+            if (file) {
+                mostrarAnimacionDeCarga($('#iconUploadAreaListado'), file, true);
+            }
         }
 
-        // Función para mostrar la vista de Notificación en Listado manteniendo los datos capturados
-        function mostrarListado() {
-            // Redirigir a la vista de Notificación en Listado
-            // Puedes usar sessionStorage o localStorage para almacenar los datos temporalmente si es necesario
-            window.location.href = '/Notificaciones/NotificacionListado';
+        function startFileUploadMedia(input) {
+            const file = input.files[0];
+            if (file) {
+                mostrarAnimacionDeCarga($('#mediaUploadAreaListado'), file, true);
+            }
         }
+
+        // Función para manejar los eventos de arrastre
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            iconUploadAreaPush.addEventListener(eventName, preventDefaults, false);
+            iconUploadAreaListado.addEventListener(eventName, preventDefaults, false);
+            mediaUploadAreaListado.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Animación de borde al arrastrar sobre las áreas de carga
+        ['dragover'].forEach(eventName => {
+            iconUploadAreaPush.addEventListener(eventName, () => iconUploadAreaPush.classList.add('dragging'), false);
+            iconUploadAreaListado.addEventListener(eventName, () => iconUploadAreaListado.classList.add('dragging'), false);
+            mediaUploadAreaListado.addEventListener(eventName, () => mediaUploadAreaListado.classList.add('dragging'), false);
+        });
+
+        // Remover la animación de borde al salir del área de carga o soltar el archivo
+        ['dragleave', 'drop'].forEach(eventName => {
+            iconUploadAreaPush.addEventListener(eventName, () => iconUploadAreaPush.classList.remove('dragging'), false);
+            iconUploadAreaListado.addEventListener(eventName, () => iconUploadAreaListado.classList.remove('dragging'), false);
+            mediaUploadAreaListado.addEventListener(eventName, () => mediaUploadAreaListado.classList.remove('dragging'), false);
+        });
+
+        // Eventos para manejo de drop (cuando se suelta el archivo)
+        iconUploadAreaPush.addEventListener('drop', function (e) {
+            const file = e.dataTransfer.files[0];
+            startFileUploadPush({ files: [file] });
+        });
+
+        iconUploadAreaListado.addEventListener('drop', function (e) {
+            const file = e.dataTransfer.files[0];
+            startFileUploadListado({ files: [file] });
+        });
+
+        mediaUploadAreaListado.addEventListener('drop', function (e) {
+            const file = e.dataTransfer.files[0];
+            startFileUploadMedia({ files: [file] });
+        });
+
+        
     </script>
+    
+
+    
+    
 
 </body>
 </html>

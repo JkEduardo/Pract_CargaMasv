@@ -435,10 +435,21 @@ tbody tr {
 
     /*MODAL CREATE*/
 /* Área de carga de archivos */
+/*.upload-area {
+    border: 2px dashed #ccc;*/ /* Borde gris por defecto */
+    /*padding: 20px;
+    text-align: center;
+    position: relative;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;*/ /* Transición suave en el cambio de color */
+/*}*/
+/* Área de carga de archivos */
 .upload-area {
     border: 2px dashed #ccc; /* Borde gris por defecto */
     padding: 20px;
-    text-align: center;
+    text-align: left; /* Alineación izquierda */
     position: relative;
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -462,7 +473,7 @@ tbody tr {
     font-size: 14px;
     color: #007bff;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Alineación hacia la izquierda */
     align-items: center;
 }
 
@@ -470,11 +481,13 @@ tbody tr {
     width: 30px;
     margin-right: 10px;
 }
+
 .file-info {
     margin-top: 10px;
     text-align: left;
     color: #007bff;
 }
+
 .reemplazar-archivo {
     color: #007bff;
     text-decoration: none;
@@ -484,13 +497,14 @@ tbody tr {
     .reemplazar-archivo:hover {
         text-decoration: underline;
     }
+
 .loading-content {
     display: flex;
     align-items: center;
 }
 
 .icono-cargando {
-    width: 20px; /* Ajusta el tamaño del icono según sea necesario */
+    width: 20px; /* Ajusta el tamaño del ícono según sea necesario */
     margin-right: 10px;
 }
 
@@ -502,34 +516,33 @@ tbody tr {
     overflow: hidden;
     margin-top: 5px;
 }
+
 .progress {
     height: 100%;
     background-color: #007bff; /* Color azul de la barra de progreso */
     width: 0%;
     transition: width 0.2s ease;
 }
- /*texto selecciona*/
+
+/* Texto para las instrucciones de archivos (como "JPG, PNG no mayor a 1MB") */
 .gray-text {
-    color: #6c757d; /* Color gris para el texto "Arrastra o" */
+    color: #6c757d;
+    margin-bottom: 5px;
 }
+
+/* Texto del enlace */
 .blue-text {
-    color: #007bff; /* Color azul para el texto del enlace */
-    text-decoration: none; /* Elimina el subrayado del enlace si no lo deseas */
+    color: #007bff;
+    text-decoration: none;
 }
 
     .blue-text:hover {
-        text-decoration: underline; /* Subraya el texto al pasar el cursor */
+        text-decoration: underline;
     }
 
 .dragging {
     border-color: #007bff;
     background-color: #e9f7ff;
-}
-/* Título de sección y divisor */
-.section-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .section-divider {
@@ -620,10 +633,24 @@ tbody tr {
     font-weight: bold;
     margin-bottom: 5px;
 }
+.counter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .counter-container small {
+        font-size: 12px; /* Ajusta el tamaño del texto según tu preferencia */
+    }
+
+.text-start {
+    text-align: left;
+}
 
 .text-end small {
     font-size: 12px;
     color: #6c757d;
+    text-align: right;
 }
 
 .form-control::placeholder {
@@ -733,21 +760,23 @@ textarea.form-control {
         background-color: #e0e0e0; /* Color de fondo al hacer clic */
         border-color: #333; /* Cambiar color de borde al hacer clic */
     }
-/* boton de siguiente */
+
+    /* Botón deshabilitado */
     .button-rounded:disabled {
         background-color: #d3d3d3; /* Color gris cuando está deshabilitado */
         border-color: #a9a9a9; /* Borde gris más oscuro */
         color: #808080; /* Color del texto gris */
         cursor: not-allowed; /* Cambia el cursor a "no permitido" */
     }
-/*Linea divisora negra inferior */
+
+/* Línea divisora negra inferior */
 .line-above-buttons {
     border-top: 2px solid black; /* Línea negra de 2px */
     margin: 20px 0; /* Espaciado superior e inferior */
     width: 100%; /* Asegura que ocupe el ancho del contenedor */
 }
 
-/*notificacion listado*/
+/* Notificación en listado */
 .tab.disabled {
     pointer-events: none; /* Deshabilita la interacción con el enlace */
     color: #ccc; /* Cambia el color a gris para que parezca deshabilitado */
@@ -762,3 +791,5 @@ textarea.form-control {
     .tab:hover {
         color: #000; /* Color al pasar el ratón sobre tabs activos */
     }
+
+

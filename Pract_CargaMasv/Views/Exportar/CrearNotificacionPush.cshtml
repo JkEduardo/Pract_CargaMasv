@@ -38,13 +38,19 @@
                     <div class="mb-3">
                         <label for="notificationTitlePush" class="form-label">Título de notificación</label>
                         <textarea class="form-control input-size" id="notificationTitlePush" rows="3" maxlength="100" placeholder="Compra Autorizada por..." oninput="updatePushPreview()"></textarea>
-                        <div class="text-end"><small id="titleCounterPush">Caracteres Máximos 0/100</small></div>
+                        <div class="d-flex justify-content-between">
+                            <small id="titleMaxPush">Caracteres Máximos</small>
+                            <small id="titleCounterPush">0/100</small>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="notificationDescriptionPush" class="form-label">Descripción</label>
                         <textarea class="form-control input-size" id="notificationDescriptionPush" rows="3" maxlength="150" placeholder="Descripción" oninput="updatePushPreview()"></textarea>
-                        <div class="text-end"><small id="descCounterPush">Caracteres Máximos 0/150</small></div>
+                        <div class="d-flex justify-content-between">
+                            <small id="descMaxPush">Caracteres Máximos</small>
+                            <small id="descCounterPush">0/150</small>
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -57,23 +63,21 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="iconUploadPush" class="form-label">Sube un icono (opcional) </label>
                         <div class="upload-area" id="iconUploadAreapush">
-                            <input type="file" id="iconUploadPush" class="d-none" accept=".jpg, .png" onchange="checkPushFormCompletion()">
+                            <input type="file" id="iconUploadPush" class="d-none" accept=".jpg, .png" onchange="startFileUploadPush(this)">
                             <label for="iconUploadPush" class="upload-text">
-                                <img src="/Img/iconocarga.png" alt="Upload icon" />
-                                <span class="gray-text"> Arrastra o &nbsp; </span>
-                                <a href="javascript:void(0)" onclick="document.getElementById('iconUploadPush').click()" class="blue-text"> Selecciona tu archivo</a>
+                                <img src="/Img/iconocarga.png" alt="Upload icon">
+                                <span class="gray-text">Arrastra o &nbsp;</span>
+                                <a href="javascript:void(0)" onclick="document.getElementById('iconUploadPush').click()" class="blue-text">Selecciona tu archivo</a>
                             </label>
                             <small>JPG, PNG no mayor a 1MB</small>
 
                             <div class="file-info" id="fileInfoPush" style="display: none;">
                                 <span id="fileNamePush"></span>
                                 <div class="progress-bar">
-                                    <div class="progress" id="progressPush"></div>
+                                    <div class="progress"></div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -97,30 +101,36 @@
                     <div class="mb-3">
                         <label for="notificationTitleListado" class="form-label">Título de notificación</label>
                         <textarea class="form-control input-size" id="notificationTitleListado" rows="3" maxlength="100" placeholder="Compra autorizada por:" oninput="updateListadoPreview()"></textarea>
-                        @* <input type="text" class="form-control input-size" id="notificationTitleListado" maxlength="100" placeholder="Compra autorizada por:" oninput="updateListadoPreview()"> *@
-                        <div class="text-end"><small id="titleCounterListado">Caracteres Máximos 0/100</small></div>
+                        <div class="d-flex justify-content-between">
+                            <small id="titleMaxListado">Caracteres Máximos</small>
+                            <small id="titleCounterListado">0/100</small>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="notificationDescriptionListado" class="form-label">Descripción</label>
                         <textarea class="form-control input-size" id="notificationDescriptionListado" rows="3" maxlength="150" placeholder="Descripción" oninput="updateListadoPreview()"></textarea>
-                        <div class="text-end"><small id="descCounterListado">Caracteres Máximos 0/150</small></div>
+                        <div class="d-flex justify-content-between">
+                            <small id="descMaxListado">Caracteres Máximos</small>
+                            <small id="descCounterListado">0/150</small>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="iconUploadListado" class="form-label">Sube un icono</label>
                         <div class="upload-area" id="iconUploadAreaListado">
-                            <input type="file" id="iconUploadListado" class="d-none" accept=".jpg, .png" onchange="checkListadoFormCompletion()">
+                            <input type="file" id="iconUploadListado" class="d-none" accept=".jpg, .png" onchange="startFileUploadListado(this)">
                             <label for="iconUploadListado" class="upload-text">
                                 <img src="/Img/iconocarga.png" alt="Upload icon" />
                                 <span class="gray-text"> Arrastra o &nbsp; </span>
                                 <a href="javascript:void(0)" onclick="document.getElementById('iconUploadListado').click()" class="blue-text"> Selecciona tu archivo</a>
                             </label>
                             <small>JPG, PNG no mayor a 1MB</small>
+
                             <div class="file-info" id="fileInfoListado" style="display: none;">
                                 <span id="fileNameListado"></span>
                                 <div class="progress-bar">
-                                    <div class="progress" id="progressListado"></div>
+                                    <div class="progress"></div>
                                 </div>
                             </div>
                         </div>
@@ -129,17 +139,18 @@
                     <div class="mb-3">
                         <label for="mediaUploadListado" class="form-label">Sube un video o imagen (opcional)</label>
                         <div class="upload-area" id="mediaUploadAreaListado">
-                            <input type="file" id="mediaUploadListado" class="d-none" accept=".jpg, .png, .mp4" onchange="checkListadoFormCompletion()">
+                            <input type="file" id="mediaUploadListado" class="d-none" accept=".jpg, .png, .mp4" onchange="startFileUploadMedia(this)">
                             <label for="mediaUploadListado" class="upload-text">
                                 <img src="/Img/iconocarga.png" alt="Upload icon" />
                                 <span class="gray-text"> Arrastra o &nbsp; </span>
                                 <a href="javascript:void(0)" onclick="document.getElementById('mediaUploadListado').click()" class="blue-text"> Selecciona tu archivo</a>
                             </label>
                             <small>JPG, PNG o MP4 no mayor a 20MB</small>
+
                             <div class="file-info" id="fileInfoMedia" style="display: none;">
                                 <span id="fileNameMedia"></span>
                                 <div class="progress-bar">
-                                    <div class="progress" id="progressMedia"></div>
+                                    <div class="progress"></div>
                                 </div>
                             </div>
                         </div>
@@ -166,13 +177,14 @@
                 document.getElementById('listTab').classList.add('active');
                 document.getElementById('form-push').style.display = 'none';
                 document.getElementById('form-listado').style.display = 'block';
-            }
+         }
 
         function showPushNotification() {
             document.getElementById('pushTab').classList.add('active');
             document.getElementById('listTab').classList.remove('active');
             document.getElementById('form-push').style.display = 'block';
             document.getElementById('form-listado').style.display = 'none';
+            checkPushFormCompletion();
         }
 
         function showListNotification() {
@@ -198,6 +210,7 @@
                 listTab.classList.add('disabled');  // Deshabilita el enlace "Notificación en listado"
             }
         }
+        document.addEventListener('DOMContentLoaded', checkPushFormCompletion);
 
         function checkListadoFormCompletion() {
             const title = document.getElementById('notificationTitleListado').value;
@@ -218,12 +231,12 @@
             $(inputElement).on('input', function () {
                 var value = $(this).val();
 
-                // Remueve los caracteres de riesgo si son ingresados
+                
                 if (riskChars.test(value)) {
                     $(this).val(value.replace(riskChars, ''));
                 }
                 var length = $(this).val().length;
-                $(counterElement).text('Caracteres Máximos ' + length + '/' + maxLength);
+                $(counterElement).text( length + '/' + maxLength);
             });
         }
         blockRiskChars('#notificationTitlePush', '#titleCounterPush', 100);
@@ -234,51 +247,87 @@
 
         /* Función para actualizar la previsualización de Notificación Push y listado */
         function updatePushPreview() {
-            const titleInput = document.getElementById('notificationTitlePush');
-            const descInput = document.getElementById('notificationDescriptionPush');
-            const titleCounter = document.getElementById('titleCounterPush');
-            const descCounter = document.getElementById('descCounterPush');
-            titleCounter.innerText = `Caracteres Máximos ${titleInput.value.length}/100`;
-            descCounter.innerText = `Caracteres Máximos ${descInput.value.length}/150`;
+            // Título de notificación (Push)
+            const titleTextareaPush = document.getElementById('notificationTitlePush');
+            const titleCounterPush = document.getElementById('titleCounterPush');
+            const titleMaxPush = document.getElementById('titleMaxPush');
+            const titleMaxLengthPush = titleTextareaPush.maxLength;
+            const titleCurrentLengthPush = titleTextareaPush.value.length;
 
-            // Cambia a color rojo si se alcanzan los límites
-            if (titleInput.value.length === 100) {
-                titleCounter.classList.add('error');
+            // Actualiza el contador de caracteres
+            titleCounterPush.innerText = `${titleCurrentLengthPush}/${titleMaxLengthPush}`;
+
+            // Cambia el color a rojo si se alcanza el máximo
+            if (titleCurrentLengthPush >= titleMaxLengthPush) {
+                titleCounterPush.style.color = 'red';
+                titleMaxPush.style.color = 'red';
             } else {
-                titleCounter.classList.remove('error');
+                titleCounterPush.style.color = '';
+                titleMaxPush.style.color = '';
             }
 
-            if (descInput.value.length === 150) {
-                descCounter.classList.add('error');
-            } else {
-                descCounter.classList.remove('error');
-            }
+            // Descripción de notificación (Push)
+            const descTextareaPush = document.getElementById('notificationDescriptionPush');
+            const descCounterPush = document.getElementById('descCounterPush');
+            const descMaxPush = document.getElementById('descMaxPush');
+            const descMaxLengthPush = descTextareaPush.maxLength;
+            const descCurrentLengthPush = descTextareaPush.value.length;
 
+            // Actualiza el contador de caracteres
+            descCounterPush.innerText = `${descCurrentLengthPush}/${descMaxLengthPush}`;
+
+            // Cambia el color a rojo si se alcanza el máximo
+            if (descCurrentLengthPush >= descMaxLengthPush) {
+                descCounterPush.style.color = 'red';
+                descMaxPush.style.color = 'red';
+            } else {
+                descCounterPush.style.color = '';
+                descMaxPush.style.color = '';
+            }
+            checkPushFormCompletion();
         }
+
         function updateListadoPreview() {
-            const titleInput = document.getElementById('notificationTitleListado');
-            const descInput = document.getElementById('notificationDescriptionListado');
-            const titleCounter = document.getElementById('titleCounterListado');
-            const descCounter = document.getElementById('descCounterListado');
+            // Título de notificación (Listado)
+            const titleTextareaListado = document.getElementById('notificationTitleListado');
+            const titleCounterListado = document.getElementById('titleCounterListado');
+            const titleMaxListado = document.getElementById('titleMaxListado');
+            const titleMaxLengthListado = titleTextareaListado.maxLength;
+            const titleCurrentLengthListado = titleTextareaListado.value.length;
 
-            titleCounter.innerText = `Caracteres Máximos ${titleInput.value.length}/100`;
-            descCounter.innerText = `Caracteres Máximos ${descInput.value.length}/150`;
+            // Actualiza el contador de caracteres
+            titleCounterListado.innerText = `${titleCurrentLengthListado}/${titleMaxLengthListado}`;
 
-            // Cambia a color rojo si se alcanzan los límites
-            if (titleInput.value.length === 100) {
-                titleCounter.classList.add('error');
+            // Cambia el color a rojo si se alcanza el máximo
+            if (titleCurrentLengthListado >= titleMaxLengthListado) {
+                titleCounterListado.style.color = 'red';
+                titleMaxListado.style.color = 'red';
             } else {
-                titleCounter.classList.remove('error');
+                titleCounterListado.style.color = '';
+                titleMaxListado.style.color = '';
             }
 
-            if (descInput.value.length === 150) {
-                descCounter.classList.add('error');
-            } else {
-                descCounter.classList.remove('error');
-            }
+            // Descripción de notificación (Listado)
+            const descTextareaListado = document.getElementById('notificationDescriptionListado');
+            const descCounterListado = document.getElementById('descCounterListado');
+            const descMaxListado = document.getElementById('descMaxListado');
+            const descMaxLengthListado = descTextareaListado.maxLength;
+            const descCurrentLengthListado = descTextareaListado.value.length;
 
+            // Actualiza el contador de caracteres
+            descCounterListado.innerText = `${descCurrentLengthListado}/${descMaxLengthListado}`;
+
+            // Cambia el color a rojo si se alcanza el máximo
+            if (descCurrentLengthListado >= descMaxLengthListado) {
+                descCounterListado.style.color = 'red';
+                descMaxListado.style.color = 'red';
+            } else {
+                descCounterListado.style.color = '';
+                descMaxListado.style.color = '';
+            }
+            checkPushFormCompletion();
         }
-
+        
         // Áreas de carga y sus inputs
         const iconUploadAreaPush = document.getElementById('iconUploadAreapush');
         const iconUploadAreaListado = document.getElementById('iconUploadAreaListado');
@@ -292,57 +341,80 @@
             e.preventDefault();
             e.stopPropagation();
         }
+        function acortarNombreArchivo(fileName) {
+            const ext = fileName.split('.').pop();  // Obtener la extensión del archivo
+            const baseName = fileName.split('.').slice(0, -1).join('.');  // Obtener el nombre sin la extensión
+            return baseName.length > 5 ? baseName.substring(0, 5) + '...' + ext : fileName;
+        }
 
-        // Función para manejar la animación de carga y el progreso
         function mostrarAnimacionDeCarga(uploadArea, file, isSuccess, sizeLimit = '', allowedFormats = '') {
-            // Cambia el borde punteado a azul y elimina clases anteriores
+            const fileNameShort = acortarNombreArchivo(file.name);
+
+            // Resetear clases y establecer el estado de "cargando"
             uploadArea.removeClass('loading success error');
             uploadArea.addClass('loading');
             uploadArea.css('border-color', '#007bff');  // Cambiar borde a azul durante la carga
 
-            // Mostrar el icono de carga junto con el nombre del archivo al iniciar la carga
-            uploadArea.html(`
+            // Actualizar nombre del archivo acortado y mostrar barra de progreso
+            uploadArea.find('.file-info').html(`
                 <div class="loading-content">
                     <img src="/Img/cargandoArchivo.png" alt="Cargando archivo" class="icono-cargando" />
-                    <span>${file.name}</span>
+                    <span>${fileNameShort}</span>
                     <div class="progress-bar">
                         <div class="progress"></div>
                     </div>
                 </div>
-            `);
+            `).show();  // Mostrar la información del archivo y barra de progreso
 
-            // Simulación del progreso de la carga (para propósitos de demostración)
+            // Ocultar el área de arrastre y selección
+            uploadArea.find('.upload-text').hide();  // Ocultar el texto de "Arrastra o selecciona"
+            uploadArea.find('small').hide();  // Ocultar el texto del formato
+
+            // Simulación del progreso de la carga
             let progress = 0;
             const interval = setInterval(function () {
-                progress += 10; // Incrementar el progreso de carga
-                $('.progress').css('width', progress + '%'); // Actualizar la barra de progreso
+                progress += 10;  // Incrementar el progreso de carga
+                uploadArea.find('.progress').css('width', progress + '%');  // Actualizar la barra de progreso
 
                 if (progress >= 100) {
-                    clearInterval(interval); // Detener la simulación al llegar al 100%
+                    clearInterval(interval);  // Detener la simulación al llegar al 100%
                     uploadArea.removeClass('loading');
-                    uploadArea.css('border-color', isSuccess ? '#28a745' : '#dc3545');  // Verde si tiene éxito, rojo si hay error
 
-                    if (isSuccess) {
-                        uploadArea.addClass('success');
-                        uploadArea.html(`
-                            <img src="/Img/cargaexitosa.png" alt="Success icon" /> ${file.name} cargado correctamente
+                    // Hacer la validación del archivo después de la animación
+                    const validation = validarArchivo(file, sizeLimit === '1MB' ? 1 : 20, allowedFormats.split(', ').map(f => f.toLowerCase()));
+
+                    if (!validation.isValid) {
+                        // Si falla la validación, mostrar el error y cambiar el borde a rojo
+                        uploadArea.addClass('error');
+                        uploadArea.css('border-color', '#dc3545');  // Cambiar borde a rojo
+                        uploadArea.find('.file-info').html(`
+                            <div class="upload-error" style="color: #dc3545;">
+                                <img src="/Img/cargaerror.png" alt="Error icon" /> ${validation.message}
+                                <a href="javascript:void(0);" class="replace-file" style="color: black; font-weight: bold;">Reemplazar</a>
+                            </div>
                         `);
                     } else {
-                        uploadArea.addClass('error');
-                        uploadArea.html(`
-                            <img src="/Img/cargaerror.png" alt="Error icon" /> Archivo no válido. Seleccione un archivo de tipo ${allowedFormats} menor a ${sizeLimit}
-                            <a href="javascript:void(0)" class="selecciona-archivo">Selecciona tu archivo</a>
+                        // Si el archivo es válido, mostrar éxito
+                        uploadArea.addClass('success');
+                        uploadArea.css('border-color', '#28a745');  // Cambiar borde a verde
+                        uploadArea.find('.file-info').html(`
+                            <div class="upload-success" style="color: #28a745;">
+                                <img src="/Img/cargaexitosa.png" alt="Success icon" /> ${fileNameShort} cargado correctamente
+                                <a href="javascript:void(0);" class="replace-file" style="color: black; font-weight: bold;">Reemplazar</a>
+                            </div>
                         `);
                     }
 
-                    // Reactivar el evento de clic en el enlace "Selecciona tu archivo"
-                    $('.selecciona-archivo').on('click', function () {
-                        const inputSelector = uploadArea.attr('id') === 'iconUploadAreapush' ? '#iconUploadPush' : (uploadArea.attr('id') === 'iconUploadAreaListado' ? '#iconUploadListado' : '#mediaUploadListado');
+                    // Reactivar el evento de clic en el enlace "Reemplazar"
+                    uploadArea.find('.replace-file').on('click', function () {
+                        const inputSelector = uploadArea.attr('id') === 'iconUploadAreapush' ? '#iconUploadPush' :
+                            (uploadArea.attr('id') === 'iconUploadAreaListado' ? '#iconUploadListado' : '#mediaUploadListado');
                         $(inputSelector).click();  // Activa el clic en el input de archivo
                     });
                 }
             }, 200);
         }
+
 
         // Vincular los eventos de change a los inputs de archivo para la selección manual
         $(document).on('change', '#iconUploadPush', function (event) {
@@ -366,64 +438,84 @@
             }
         });
 
-        // Funciones para iniciar la carga en las diferentes áreas
+        function validarArchivo(file, maxSizeMB, allowedTypes) {
+            const fileSizeMB = file.size / (1024 * 1024);  // Convertir el tamaño a MB
+            const fileExtension = file.name.split('.').pop().toLowerCase();  // Obtener la extensión del archivo
+
+            // Verificar si la extensión del archivo es permitida
+            if (!allowedTypes.includes(fileExtension)) {
+                return { isValid: false, message: `Tipo de archivo no permitido. Solo se permiten: ${allowedTypes.join(', ').toUpperCase()}` };
+            }
+
+            // Verificar si el tamaño del archivo es menor o igual al límite
+            if (fileSizeMB > maxSizeMB) {
+                return { isValid: false, message: `El archivo supera el tamaño permitido de ${maxSizeMB}MB` };
+            }
+
+            // Si pasa las validaciones
+            return { isValid: true, message: '' };
+        }
+
         function startFileUploadPush(input) {
             const file = input.files[0];
             if (file) {
-                mostrarAnimacionDeCarga($('#iconUploadAreapush'), file, true);
+                mostrarAnimacionDeCarga($('#iconUploadAreapush'), file, true, '1MB', 'jpg, jpeg, png');
             }
         }
 
         function startFileUploadListado(input) {
             const file = input.files[0];
             if (file) {
-                mostrarAnimacionDeCarga($('#iconUploadAreaListado'), file, true);
+                mostrarAnimacionDeCarga($('#iconUploadAreaListado'), file, true, '1MB', 'jpg, jpeg, png');
             }
         }
 
         function startFileUploadMedia(input) {
             const file = input.files[0];
             if (file) {
-                mostrarAnimacionDeCarga($('#mediaUploadAreaListado'), file, true);
+                mostrarAnimacionDeCarga($('#mediaUploadAreaListado'), file, true, '20MB', 'jpg, jpeg, png, mp4');
             }
         }
 
-        // Función para manejar los eventos de arrastre
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            iconUploadAreaPush.addEventListener(eventName, preventDefaults, false);
-            iconUploadAreaListado.addEventListener(eventName, preventDefaults, false);
-            mediaUploadAreaListado.addEventListener(eventName, preventDefaults, false);
-        });
 
-        // Animación de borde al arrastrar sobre las áreas de carga
-        ['dragover'].forEach(eventName => {
-            iconUploadAreaPush.addEventListener(eventName, () => iconUploadAreaPush.classList.add('dragging'), false);
-            iconUploadAreaListado.addEventListener(eventName, () => iconUploadAreaListado.classList.add('dragging'), false);
-            mediaUploadAreaListado.addEventListener(eventName, () => mediaUploadAreaListado.classList.add('dragging'), false);
-        });
 
-        // Remover la animación de borde al salir del área de carga o soltar el archivo
-        ['dragleave', 'drop'].forEach(eventName => {
-            iconUploadAreaPush.addEventListener(eventName, () => iconUploadAreaPush.classList.remove('dragging'), false);
-            iconUploadAreaListado.addEventListener(eventName, () => iconUploadAreaListado.classList.remove('dragging'), false);
-            mediaUploadAreaListado.addEventListener(eventName, () => mediaUploadAreaListado.classList.remove('dragging'), false);
-        });
 
-        // Eventos para manejo de drop (cuando se suelta el archivo)
-        iconUploadAreaPush.addEventListener('drop', function (e) {
-            const file = e.dataTransfer.files[0];
-            startFileUploadPush({ files: [file] });
-        });
+            // Función para manejar los eventos de arrastre
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                iconUploadAreaPush.addEventListener(eventName, preventDefaults, false);
+                iconUploadAreaListado.addEventListener(eventName, preventDefaults, false);
+                mediaUploadAreaListado.addEventListener(eventName, preventDefaults, false);
+            });
 
-        iconUploadAreaListado.addEventListener('drop', function (e) {
-            const file = e.dataTransfer.files[0];
-            startFileUploadListado({ files: [file] });
-        });
+            // Animación de borde al arrastrar sobre las áreas de carga
+            ['dragover'].forEach(eventName => {
+                iconUploadAreaPush.addEventListener(eventName, () => iconUploadAreaPush.classList.add('dragging'), false);
+                iconUploadAreaListado.addEventListener(eventName, () => iconUploadAreaListado.classList.add('dragging'), false);
+                mediaUploadAreaListado.addEventListener(eventName, () => mediaUploadAreaListado.classList.add('dragging'), false);
+            });
 
-        mediaUploadAreaListado.addEventListener('drop', function (e) {
-            const file = e.dataTransfer.files[0];
-            startFileUploadMedia({ files: [file] });
-        });
+            // Remover la animación de borde al salir del área de carga o soltar el archivo
+            ['dragleave', 'drop'].forEach(eventName => {
+                iconUploadAreaPush.addEventListener(eventName, () => iconUploadAreaPush.classList.remove('dragging'), false);
+                iconUploadAreaListado.addEventListener(eventName, () => iconUploadAreaListado.classList.remove('dragging'), false);
+                mediaUploadAreaListado.addEventListener(eventName, () => mediaUploadAreaListado.classList.remove('dragging'), false);
+            });
+
+            // Eventos para manejo de drop (cuando se suelta el archivo)
+            iconUploadAreaPush.addEventListener('drop', function (e) {
+                const file = e.dataTransfer.files[0];
+                startFileUploadPush({ files: [file] });
+            });
+
+            iconUploadAreaListado.addEventListener('drop', function (e) {
+                const file = e.dataTransfer.files[0];
+                startFileUploadListado({ files: [file] });
+            });
+
+            mediaUploadAreaListado.addEventListener('drop', function (e) {
+                const file = e.dataTransfer.files[0];
+                startFileUploadMedia({ files: [file] });
+            });
 
         
     </script>

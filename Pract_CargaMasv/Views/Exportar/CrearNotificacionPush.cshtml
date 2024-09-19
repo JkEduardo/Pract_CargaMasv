@@ -24,12 +24,21 @@
             </div>
         </div>
         <div class="notification-header">
-            <div class="notification-tabs">
-                <a href="javascript:void(0);" class="tab active" id="pushTab" onclick="showPushNotification()">Notificación push</a>
-                <a href="javascript:void(0);" class="tab disabled" id="listTab" onclick="showListNotification()">Notificación en listado</a>
+            <div class="notification-steps">
+                <!-- Paso 1 -->
+                <div class="step" onclick="showPushNotification()">
+                    <div class="line active-line"></div> <!-- Línea arriba -->
+                    <span class="step-label">Paso 1</span>
+                    <a href="javascript:void(0);" class="tab active" id="pushTab">Notificación push</a>
+                </div>
+                <!-- Paso 2 -->
+                <div class="step">
+                    <div class="line inactive-line"></div> <!-- Línea arriba -->
+                    <span class="step-label disabled">Paso 2</span>
+                    <a href="javascript:void(0);" class="tab disabled" id="listTab">Notificación en listado</a>
+                </div>
             </div>
         </div>
-
         <!-- Formulario de Notificación push -->
         <div id="form-push" class="form-section">
             <div class="row">
@@ -172,27 +181,71 @@
     <script>
         /* Funcionalidad Forms Notificaciones Push y Listado BEGIN */
 
+        // function showListForm() {
+        //         document.getElementById('pushTab').classList.remove('active');
+        //         document.getElementById('listTab').classList.add('active');
+        //         document.getElementById('form-push').style.display = 'none';
+        //         document.getElementById('form-listado').style.display = 'block';
+        //  }
+
         function showListForm() {
-                document.getElementById('pushTab').classList.remove('active');
-                document.getElementById('listTab').classList.add('active');
-                document.getElementById('form-push').style.display = 'none';
-                document.getElementById('form-listado').style.display = 'block';
-         }
+            // Ocultar la pestaña de Notificación Push y mostrar la de Notificación en Listado
+            document.getElementById('pushTab').classList.remove('active');
+            document.getElementById('listTab').classList.add('active');
+
+            // Cambiar los colores de las líneas, pasos, y títulos
+            document.querySelector('.step .active-line').style.backgroundColor = '#ccc'; // Línea de Push a gris
+            document.querySelector('.step .inactive-line').style.backgroundColor = 'black'; // Línea de Listado a negro
+            document.querySelector('.step-label').style.color = '#999'; // Paso 1 en gris
+            document.querySelectorAll('.step-label')[1].style.color = 'black'; // Paso 2 en negro
+            document.getElementById('pushTab').style.color = '#999'; // Título Push en gris
+            document.getElementById('listTab').style.color = 'black'; // Título Listado en negro
+
+            // Mostrar y ocultar los formularios
+            document.getElementById('form-push').style.display = 'none';
+            document.getElementById('form-listado').style.display = 'block';
+        }
+
+
 
         function showPushNotification() {
             document.getElementById('pushTab').classList.add('active');
             document.getElementById('listTab').classList.remove('active');
+
+            document.querySelector('.step .active-line').style.backgroundColor = 'black'; // Línea de Push a negro
+            document.querySelector('.step .inactive-line').style.backgroundColor = '#ccc'; // Línea de Listado a gris
+            document.querySelector('.step-label').style.color = 'black'; // Paso 1 en negro
+            document.querySelectorAll('.step-label')[1].style.color = '#999'; // Paso 2 en gris
+            document.getElementById('pushTab').style.color = 'black'; // Título Push en negro
+            document.getElementById('listTab').style.color = '#999'; // Título Listado en gris
+
             document.getElementById('form-push').style.display = 'block';
             document.getElementById('form-listado').style.display = 'none';
-            checkPushFormCompletion();
         }
 
         function showListNotification() {
             document.getElementById('pushTab').classList.remove('active');
             document.getElementById('listTab').classList.add('active');
+
+            // Cambiar colores para notificación listado activa
+            document.querySelector('.step .inactive-line').style.backgroundColor = 'black';
+            document.querySelector('.step .active-line').style.backgroundColor = '#ccc';
+
+            // Actualizar el estilo de Paso 2 y Notificación Listado a negro
+            document.querySelectorAll('.step-label')[1].classList.remove('disabled');
+            document.querySelectorAll('.step-label')[1].style.color = 'black';
+
+            // Cambiar el título a negro para listado y gris para push
+            document.getElementById('pushTab').style.color = '#999';
+            document.getElementById('listTab').style.color = 'black';
+
+            // Mostrar formulario de Listado y ocultar Push
             document.getElementById('form-push').style.display = 'none';
             document.getElementById('form-listado').style.display = 'block';
         }
+        window.onload = function () {
+            showPushNotification();
+        };
 
         function checkPushFormCompletion() {
             const title = document.getElementById('notificationTitlePush').value;
@@ -200,16 +253,21 @@
             const status = document.getElementById('notificationStatusPush').value;
 
             const siguienteButton = document.getElementById('siguienteButtonPush');
-            const listTab = document.getElementById('listTab');
 
+            // Verificar si todos los campos requeridos están llenos
             if (title && description && status) {
                 siguienteButton.disabled = false;  // Habilita el botón "Siguiente"
-                listTab.classList.remove('disabled'); // Habilita el enlace "Notificación en listado"
             } else {
                 siguienteButton.disabled = true;   // Deshabilita el botón "Siguiente"
-                listTab.classList.add('disabled');  // Deshabilita el enlace "Notificación en listado"
             }
         }
+
+        // Escuchar cambios en los campos para validar continuamente
+        document.getElementById('notificationTitlePush').addEventListener('input', checkPushFormCompletion);
+        document.getElementById('notificationDescriptionPush').addEventListener('input', checkPushFormCompletion);
+        document.getElementById('notificationStatusPush').addEventListener('change', checkPushFormCompletion);
+
+        // Asegúrate de que los campos sean validados al cargar la página
         document.addEventListener('DOMContentLoaded', checkPushFormCompletion);
 
         function checkListadoFormCompletion() {

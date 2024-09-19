@@ -664,11 +664,61 @@ textarea.form-control {
 /* Estructura de la barra de selección de pestañas */
 .notification-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 0px solid #ccc;
+    flex-direction: column;
+    align-items: flex-start; /* Alineación a la izquierda */
+    padding-bottom: 10px;
 }
+
+.notification-steps {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alineación de los pasos a la izquierda */
+    cursor: pointer; /* El cursor de puntero para indicar clic */
+}
+
+.step-label {
+    font-size: 12px;
+    color: black; /* Color del paso activo */
+    margin-bottom: 5px; /* Añadir espacio entre el "Paso" y el título */
+}
+
+    .step-label.disabled {
+        color: #999; /* Color gris para el paso deshabilitado */
+    }
+
+.tab {
+    font-size: 16px;
+    font-weight: bold;
+    color: black; /* Color del tab activo */
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer; /* Cursor de puntero */
+}
+
+    .tab.disabled {
+        color: #999; /* Color gris para el tab deshabilitado */
+    }
+
+.line {
+    height: 2px;
+    width: 466px; /* Ancho de la línea ajustado a la mitad del header */
+    margin-bottom: 10px; /* Espacio entre la línea y el "Paso" */
+}
+
+.active-line {
+    background-color: black;
+}
+
+.inactive-line {
+    background-color: #ccc;
+}
+
 
     .notification-header h5 {
         font-size: 24px;

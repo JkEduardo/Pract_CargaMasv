@@ -176,6 +176,28 @@ namespace Pract_CargaMasv.Controllers
             return View(); // Retorna la vista de crear notificación
         }
 
+        [HttpPost]
+        public IActionResult GuardarNotificacion(string tituloPush, string descripcionPush, string estatusPush,
+                                          string tituloListado, string descripcionListado,
+                                          IFormFile iconoPush, IFormFile iconoListado, IFormFile mediaListado)
+        {
+            // Procesar los datos aquí
+            // Puedes guardar los archivos, validarlos y luego procesar los demás campos
+
+            if (iconoPush != null)
+            {
+                // Guardar el archivo en alguna ruta, por ejemplo
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", iconoPush.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    iconoPush.CopyTo(stream);
+                }
+            }
+
+            // Realiza operaciones con los demás archivos (iconoListado, mediaListado)
+            // Luego responde a la petición
+            return Json(new { success = true });
+        }
 
         [HttpPost]
         public IActionResult UploadFile(IFormFile file)

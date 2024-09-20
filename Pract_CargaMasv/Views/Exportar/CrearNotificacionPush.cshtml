@@ -170,7 +170,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12 text-end">
-                    <button type="button" class="btn btn-primary" id="createNotificationButtonListado" disabled>Crear notificación</button>
+                    <button type="button" class="btn btn-primary" id="createNotificationButtonListado" disabled onclick="enviarDatosNotificacion()">Crear notificación</button>
                 </div>
             </div>
             <br /><br />
@@ -204,6 +204,7 @@
             // Mostrar y ocultar los formularios
             document.getElementById('form-push').style.display = 'none';
             document.getElementById('form-listado').style.display = 'block';
+            checkListadoFormCompletion();
         }
 
 
@@ -227,25 +228,36 @@
             document.getElementById('pushTab').classList.remove('active');
             document.getElementById('listTab').classList.add('active');
 
-            // Cambiar colores para notificación listado activa
             document.querySelector('.step .inactive-line').style.backgroundColor = 'black';
             document.querySelector('.step .active-line').style.backgroundColor = '#ccc';
 
-            // Actualizar el estilo de Paso 2 y Notificación Listado a negro
             document.querySelectorAll('.step-label')[1].classList.remove('disabled');
             document.querySelectorAll('.step-label')[1].style.color = 'black';
 
-            // Cambiar el título a negro para listado y gris para push
             document.getElementById('pushTab').style.color = '#999';
             document.getElementById('listTab').style.color = 'black';
 
-            // Mostrar formulario de Listado y ocultar Push
             document.getElementById('form-push').style.display = 'none';
             document.getElementById('form-listado').style.display = 'block';
+
         }
+        // window.onload = function () {
+        //     showPushNotification();
+        // };
         window.onload = function () {
+            // Validar los campos de Push al cargar la página
             showPushNotification();
-        };
+
+            // Escuchar cambios en los campos del formulario de Push
+            document.getElementById('notificationTitlePush').addEventListener('input', checkPushFormCompletion);
+            document.getElementById('notificationDescriptionPush').addEventListener('input', checkPushFormCompletion);
+            document.getElementById('notificationStatusPush').addEventListener('change', checkPushFormCompletion);
+
+            // Escuchar cambios en los campos del formulario de Listado
+            document.getElementById('notificationTitleListado').addEventListener('input', checkListadoFormCompletion);
+            document.getElementById('notificationDescriptionListado').addEventListener('input', checkListadoFormCompletion);
+            document.getElementById('iconUploadListado').addEventListener('change', checkListadoFormCompletion);
+        }
 
         function checkPushFormCompletion() {
             const title = document.getElementById('notificationTitlePush').value;
@@ -575,6 +587,57 @@
                 startFileUploadMedia({ files: [file] });
             });
 
+
+        function enviarDatosNotificacion() {
+            debugger
+            // Crear un objeto FormData
+            let formData = new FormData();
+
+            // Datos del formulario Push
+            formData.append('tituloPush', document.getElementById('notificationTitlePush').value);
+            formData.append('descripcionPush', document.getElementById('notificationDescriptionPush').value);
+            formData.append('estatusPush', document.getElementById('notificationStatusPush').value);
+
+            // Agregar el ícono subido de Push
+            let iconoPush = document.getElementById('iconUploadPush').files[0];
+            if (iconoPush) {
+                formData.append('iconoPush', iconoPush);  // Solo si hay archivo seleccionado
+            }
+
+            // Datos del formulario Listado (si está disponible)
+            formData.append('tituloListado', document.getElementById('notificationTitleListado').value);
+            formData.append('descripcionListado', document.getElementById('notificationDescriptionListado').value);
+
+            // Agregar el ícono subido de Listado
+            let iconoListado = document.getElementById('iconUploadListado').files[0];
+            if (iconoListado) {
+                formData.append('iconoListado', iconoListado);  // Solo si hay archivo seleccionado
+            }
+
+            // Agregar el archivo de imagen o video en el listado
+            let mediaListado = document.getElementById('mediaUploadListado').files[0];
+            if (mediaListado) {
+                formData.append('mediaListado', mediaListado);  // Solo si hay archivo seleccionado
+            }
+            debugger
+            // Enviar los datos al controlador usando AJAX
+            $.ajax({
+                url: '/Exportar/GuardarNotificacion',  // Ruta a tu controlador en la acción adecuada
+                type: 'POST',
+                data: formData,
+                contentType: false,  // Necesario para enviar FormData
+                processData: false,  // Evita que jQuery procese los datos
+                success: function (response) {
+                    // Manejar la respuesta del servidor
+                    alert('Notificación guardada exitosamente');
+                    // Aquí puedes redirigir al usuario o realizar otras acciones
+                },
+                error: function (xhr, status, error) {
+                    // Manejar el error
+                    alert('Error al guardar la notificación: ' + error);
+                }
+            });
+        }
         
     </script>
     

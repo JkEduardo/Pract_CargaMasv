@@ -1,0 +1,731 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+/*Fuentes Poppins*/
+@font-face {
+    font-family: 'Poppins';
+    src: url('/Fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: 400; /* Peso normal */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../font/Poppins-Figtree/Poppins-Light.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins-regular';
+    src: url('../font/Poppins/Poppins-Regular.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Figtree-LiNormal';
+    src: url('../font/Poppins-Figtree/Figtree-Light.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Figtree-BolNegritas';
+    src: url('../font/Poppins-Figtree/Figtree-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Figtree-BolExtra';
+    src: url('../font/Poppins-Figtree/Figtree-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/*.upload-area {
+    height: auto;
+    min-height: 80px;
+    border-radius: 16px;
+    border: 1px dashed #ADADAD;
+    padding: 20px, 40px;
+    text-align: left;
+    position: relative;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+}*/
+.upload-area {
+    height: 80px; /* Mantener la misma altura para todos los estados */
+    border-radius: 16px;
+    border: 1px dashed #ADADAD;
+    padding: 10px 20px;
+    text-align: left;
+    position: relative;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Asegura que todo esté centrado verticalmente */
+    gap: 25px;
+}
+
+    .upload-area.loading {
+        border-color: #007bff;
+    }
+
+    .upload-area.success {
+        border-color: #28a745;
+        border-style: solid;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+    }
+
+.upload-success {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Asegura que todo esté centrado verticalmente */
+    width: 100%;
+}
+.success-icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+}
+.upload-success .file-name {
+    font-weight: bold;
+    color: black;
+}
+.upload-success .file-size {
+    font-size: 12px; /* Tamaño del archivo más pequeño */
+    color: #28a745; /* Color verde */
+}
+
+.replace-file {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    padding-left: 30px;
+}
+    .replace-file::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px; 
+        background-color: black; 
+        margin-top: 2px; 
+        transition: width 0.3s ease; 
+    }
+    .replace-file:hover,
+    .replace-file:active {
+        color: black; 
+        text-decoration: none; 
+    }
+        .replace-file:hover::after,
+        .replace-file:active::after {
+            width: 100%;
+        }
+
+    .upload-area.error {
+        border-color: #dc3545;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+.error-icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+}
+
+.upload-text {
+    height: 72px;
+    font-size: 14px;
+    color: #007bff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.upload-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    flex-grow: 1;
+}
+
+    .upload-text-wrapper .gray-text {
+        margin-bottom: 0px;
+    }
+
+.upload-format {
+    font-family: Figtree-LiNormal,sans-serif;
+    color: #ADADAD;
+    font-size: 12px;
+    margin-top: 2px;
+    align-self: flex-start;
+}
+
+.upload-area img {
+    width: 35px;
+    height: 35px;
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+.file-info {
+    margin-top: 10px;
+    text-align: left;
+    color: #007bff;
+}
+
+.file-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reemplazar-archivo {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .reemplazar-archivo:hover {
+        text-decoration: underline;
+    }
+
+.loading-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    width: 100%;
+}
+
+.file-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.file-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.icono-cargando {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.progress-bar {
+    width: 300px;
+    height: 3px; /* Cambia la altura a un valor más grande */
+    background-color: #e0e0e0;
+    border-radius: 3px; /* Aumenta el radio para bordes redondeados */
+    overflow: hidden;
+    margin-top: 8px; /* Añade algo de espacio superior */
+}
+.progress {
+    height: 100%; /* Asegúrate de que ocupe toda la altura */
+    background-color: #007bff;
+    width: 0%; /* Esto se actualizará dinámicamente en JS */
+    border-radius: 6px; /* Borde redondeado */
+    transition: width 0.2s ease;
+}
+
+.gray-text {
+    font-family: Figtree-LiNormal,sans-serif;
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.blue-text {
+    font-family: Figtree-LiNormal,sans-serif;
+    font-size: 14px;
+    color: black;
+    text-decoration: underline;
+}
+
+    .blue-text:hover {
+        text-decoration: underline;
+    }
+
+.dragging {
+    border-color: #007bff;
+    background-color: #e9f7ff;
+}
+
+.section-divider {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+    margin-left: 10px;
+}
+
+.notification-preview {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.notification-icon img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.notification-content {
+    max-width: 200px;
+    overflow: hidden;
+    border: none;
+    box-shadow: none;
+}
+
+.notification-title {
+    font-family: Poppins,sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+    padding-bottom: 10px;
+}
+
+.notification-description {
+    margin-top: 5px;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-end small.error {
+    color: red;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+}
+
+    .form-control:focus {
+        border-bottom-color: #007bff;
+        outline: none;
+        box-shadow: none;
+    }
+
+.input-size {
+    width: 100%;
+    max-width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+}
+
+.d-flex.justify-content-between {
+    width: 100%;
+    max-width: 466px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+    .d-flex.justify-content-between small {
+        font-family: Figtree-LiNormal,sans-serif;
+        font-size: 12px;
+        color: #6c757d;
+    }
+
+.form-label {
+    font-family: Figtree-BolNegritas,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, .6);
+    margin-bottom: 5px;
+}
+
+.form-labeltitulos {
+    font-family: Figtree-LiNormal,sans-serif;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .6);
+    margin-bottom: 5px;
+    text-align: left;
+    display: block;
+    margin-left: 0;
+}
+
+.counter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 466px;
+    box-sizing: border-box;
+}
+
+    .counter-container small {
+        font-size: 12px;
+        text-align: right;
+    }
+
+.text-start {
+    text-align: left;
+}
+
+.text-end small {
+    font-size: 12px;
+    color: #6c757d;
+    text-align: right;
+}
+
+.form-control::placeholder {
+    font-family: Figtree-LiNormal,sans-serif;
+    font-size: 16px;
+    color: #ccc;
+}
+
+textarea.form-control {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+    font-family: Figtree-LiNormal, sans-serif;
+    font-size: 16px;
+    resize: none; /* Deshabilitar el ajuste manual */
+}
+
+.notification-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 10px;
+}
+
+.notification-steps {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alineación de los pasos a la izquierda */
+    cursor: pointer; /* El cursor de puntero para indicar clic */
+}
+
+.step-label {
+    font-family: Figtree-LiNormal, sans-serif;
+    font-size: 14px;
+    color: black;
+    margin-bottom: 5px;
+}
+
+    .step-label.disabled {
+        color: #999;
+    }
+
+.tab {
+    font-family: Figtree-BolNegritas,sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .tab.disabled {
+        color: #999;
+    }
+
+.line {
+    height: 2px;
+    width: 466px;
+    margin-bottom: 10px;
+}
+
+.active-line {
+    background-color: black;
+}
+
+.inactive-line {
+    background-color: #ccc;
+}
+
+
+.notification-header h5 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Barra de pestañas de Notificación push y Notificación en listado */
+.notification-tabs {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 10px;
+}
+
+    .notification-tabs .tab {
+        flex: 1;
+        text-align: center;
+        padding-bottom: 10px;
+        font-size: 16px;
+        color: #999;
+        text-decoration: none;
+        position: relative;
+    }
+
+        .notification-tabs .tab.active {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .notification-tabs .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-tabs .tab.active::after {
+            background-color: #000;
+        }
+
+        .notification-tabs .tab:hover {
+            color: #000;
+        }
+
+/* Contenedor principal y ajustable */
+.notification-container {
+    max-width: 961px;
+    margin: 0 auto;
+    padding: 0 15px;
+    border-radius: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-size, .form-control, .upload-area {
+    width: 466px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+    .input-size, .form-control, .upload-area {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .notification-container {
+        padding: 0 10px;
+        width: 100%;
+    }
+
+    .step {
+        flex: 1;
+        max-width: 100%;
+        width: auto;
+    }
+
+    .line {
+        width: 100%;
+    }
+
+    .input-size {
+        height: auto;
+    }
+}
+
+/*Estilos botones crear notificacion*/
+.button-rounded {
+    font-family: Figtree-BolNegritas,sans-serif;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 100px;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .button-rounded:hover {
+        background-color: #f0f0f0;
+    }
+
+    .button-rounded:active {
+        background-color: #e0e0e0;
+        border-color: #333;
+    }
+
+    .button-rounded:disabled {
+        background-color: #d3d3d3;
+        border-color: #a9a9a9;
+        color: #808080;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    .button-rounded.enabled {
+        background-color: black;
+        color: white;
+        border-color: black;
+    }
+
+/* Notificación en listado */
+.tab.disabled {
+    pointer-events: none;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.tab {
+    color: #999;
+    text-decoration: none;
+}
+
+    .tab:hover {
+        color: #000;
+    }
+
+.line-above-buttons {
+    border-top: 2px solid black;
+    margin: 20px 0;
+    width: 100%;
+}
+/* Estilos para el contenedor del select */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 466px;
+}
+
+    .select-wrapper select {
+        appearance: none;
+        width: 466px;
+        padding-right: 30px;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        border-radius: 0px;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .select-wrapper i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: 18px;
+        color: black;
+    }
+/* Asegúrate de que el label esté correctamente alineado */
+.status-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.bi bi-arrow-right {
+    float: right;
+}
+
+/* Estilos para el contenedor flotante */
+.form-floating {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+    /* Estilos para el textarea */
+    .form-floating textarea {
+        width: 466px;
+        padding: 0;
+        padding-top: 20px;
+        border-bottom: 2px solid #ccc;
+        border-radius: 0px;
+        resize: none;
+        box-sizing: border-box;
+        overflow-y: hidden;
+    }
+
+    /* Estilos para el label flotante */
+    .form-floating label {
+        position: absolute;
+        top: 12px;
+        left: 0;
+        margin-left: 0;
+        padding: 0;
+        background-color: none;
+        transition: all 0.2s ease;
+        pointer-events: none;
+        font-family: Figtree-LiNormal,sans-serif;
+        font-size: 16px;
+        color: #999;
+    }
+
+    /* Cuando el textarea tiene foco o contiene texto, el label sube */
+    .form-floating textarea:focus + label,
+    .form-floating textarea:not(:placeholder-shown) + label {
+        top: -16px;
+        left: 0;
+        font-family: Figtree-LiNormal,sans-serif;
+        font-size: 18px;
+        color: black;
+    }
+
+    /* Estilos para el textarea cuando tiene el foco */
+    .form-floating textarea:focus {
+        outline: none;
+        border-color: #007bff;
+    }

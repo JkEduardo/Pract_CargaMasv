@@ -729,3 +729,63 @@ textarea.form-control {
         outline: none;
         border-color: #007bff;
     }
+
+/* Estilo del icono de información */
+.info-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Tooltip personalizado */
+.custom-tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    padding: 8px;
+    border-radius: 8px; /* Bordes redondeados */
+    font-family: 'Arial', sans-serif; /* Tipografía específica */
+    font-size: 12px;
+    position: absolute;
+    z-index: 1;
+    top: 50%; /* Centrar verticalmente */
+    left: 140%; /* Posición hacia la derecha del icono */
+    transform: translateY(-50%); /* Alinear el tooltip verticalmente */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Mostrar el tooltip cuando se pasa el ratón por encima */
+.info-icon:hover .custom-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Botón de cerrar "X" */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: #141415; /* Color del ícono */
+    border: none;
+    font-size: 15px; /* Ajusta el tamaño del ícono aquí */
+    border-radius: 100%;
+    cursor: pointer;
+    padding: 5px 10px; /* Ajusta el tamaño del botón */
+    z-index: 10;
+}
+
+    .close-btn:hover {
+        background-color: none;
+    }
+    /* Estilos adicionales para el ícono */
+    .close-btn i {
+        color: #141415; /* Color blanco del ícono */
+        font-size: 15px; /* Tamaño del ícono */
+    }
+
+
+

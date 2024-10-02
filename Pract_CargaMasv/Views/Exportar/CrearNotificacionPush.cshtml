@@ -9,6 +9,7 @@
     @* <script src="~/js/jquery-3.5.0.min.js"></script> *@
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <link rel="stylesheet" href="/css/CrearAnimacion.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -81,8 +82,16 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="iconUploadPush" class="form-label">Sube una imagen (opcional)</label>
+                            <label for="iconUploadPush" class="form-label">Sube una imagen (opcional)
+                                <span class="info-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="custom-tooltip">
+                                        ANDROID: La imagen debera de medir 1080x1920px con relación 16:9 <br> IOS: La imagen debera de medir 1080x1920px relacion 16:9 <br> Tamaño máximo 1MB.
+                                    </span>
+                                </span>
+                            </label>
                             <div class="upload-area" id="iconUploadAreapush">
+                                <button type="button" class="close-btn" id="clearImagePush" style="display: none;" onclick="clearFileInput('iconUploadPush')"> <i class="bi bi-x-lg"></i></button>
                                 <input type="file" id="iconUploadPush" name="NotificationPushImage" class="d-none" accept=".jpg, .png" onchange="startFileUploadPush(this)">
                                 <label for="iconUploadPush" class="upload-text">
                                     <img src="/Img/cargandoArchivo.png" alt="Upload icon">
@@ -138,6 +147,7 @@
                         <div class="mb-3">
                             <label for="iconUploadListado" class="form-label">Sube un icono</label>
                             <div class="upload-area" id="iconUploadAreaListado">
+                                <button type="button" class="close-btn" id="clearIconoListado" style="display: none;" onclick="clearFileInput('iconUploadListado')"><i class="bi bi-x-lg"></i></button>
                                 <input type="file" id="iconUploadListado" name="NotificationListIcon" class="d-none" accept=".jpg, .png" onchange="startFileUploadListado(this)">
                                 <label for="iconUploadListado" class="upload-text">
                                     <img src="/images/iconoCarga.png" alt="Upload icon" />
@@ -158,6 +168,7 @@
                         <div class="mb-3">
                             <label for="mediaUploadListado" class="form-label">Sube un video o imagen (opcional)</label>
                             <div class="upload-area" id="mediaUploadAreaListado">
+                                <button type="button" class="close-btn" id="clearMediaListado" style="display: none;" onclick="clearFileInput('mediaUploadListado')"><i class="bi bi-x-lg"></i></button>
                                 <input type="file" id="mediaUploadListado" name="NotificationListMedia" class="d-none" accept=".jpg, .png, .mp4" onchange="startFileUploadMedia(this)">
                                 <label for="mediaUploadListado" class="upload-text">
                                     <img src="/images/iconoCarga.png" alt="Upload icon" />
@@ -473,80 +484,6 @@
             }
         }
 
-        // function mostrarAnimacionDeCarga(uploadArea, file, isSuccess, sizeLimit = '', allowedFormats = '') {
-        //     const fileNameShort = acortarNombreArchivo(file.name);
-        //     const uploadAreaId = uploadArea.attr('id');
-
-        //     // Resetear clases y establecer el estado de "cargando"
-        //     uploadArea.removeClass('loading success error');
-        //     uploadArea.addClass('loading');
-        //     uploadArea.css('border-color', '#007bff');
-
-        //     uploadArea.find('.file-info').html(`
-        //             <div class="loading-content">
-        //                 <div class="file-icon">
-        //                     <img src="/images/cargandoArchivo.png" alt="Cargando archivo" class="icono-cargando" />
-        //                 </div>
-        //                 <div class="file-details">
-        //                     <span class="file-name">${fileNameShort}</span>
-        //                     <div class="progress-bar">
-        //                         <div class="progress"></div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         `).show();
-
-        //     uploadArea.find('.upload-text').hide();
-        //     uploadArea.find('small').hide();
-        //     let progress = 0;
-        //     const interval = setInterval(function () {
-        //         progress += 10;
-        //         uploadArea.find('.progress').css('width', progress + '%');
-
-        //         if (progress >= 100) {
-        //             clearInterval(interval);
-        //             uploadArea.removeClass('loading');
-
-        //             validarDimensiones(file, uploadAreaId, function (isValid, message) {
-        //                 if (!isValid) {
-        //                     uploadArea.addClass('error');
-        //                     uploadArea.css('border-color', '#dc3545');  // Cambiar borde a rojo
-        //                     uploadArea.find('.file-info').html(`
-        //                                 <div class="upload-error" style="color: #dc3545;">
-        //                                                     <img src="/images/cargaerror.jpeg" alt="Error icon" /> ${message}
-        //                                                     <a href="javascript:void(0);" class="replace-file" style="color: black; font-weight: bold; text-decoration: underline;">Reemplazar</a>
-        //                                 </div>
-        //                             `);
-        //                 } else {
-        //                     uploadArea.addClass('success');
-        //                     uploadArea.css('border-color', '#28a745');  // Cambiar borde a verde
-        //                     uploadArea.find('.file-info').html(`
-        //                                 <div class="upload-success" style="color: #28a745;">
-        //                                     <img src="/images/cargaexitosa.png" alt="Success icon" /> ${fileNameShort} Carga Exitosa
-        //                                   <a href="javascript:void(0);" class="replace-file" style="color: black; font-weight: bold; text-decoration: underline;">Reemplazar</a>
-        //                                 </div>
-        //                             `);
-        //                 }
-
-        //                 // Reactivar el evento de clic en el enlace "Reemplazar"
-        //                 uploadArea.find('.replace-file').on('click', function () {
-        //                     const inputSelector = uploadAreaId === 'iconUploadAreapush' ? '#iconUploadPush' :
-        //                         (uploadAreaId === 'iconUploadAreaListado' ? '#iconUploadListado' : '#mediaUploadListado');
-        //                     $(inputSelector).click();
-        //                 });
-
-        //                 if (uploadAreaId === 'iconUploadAreapush') {
-        //                     checkPushFormCompletion();
-        //                 } else if (uploadAreaId === 'iconUploadAreaListado' || uploadAreaId === 'mediaUploadAreaListado') {
-        //                     checkListadoFormCompletion();
-        //                 }
-        //             });
-        //         }
-        //     }, 200);
-        // }
-
-        // Vincular los eventos de change a los inputs de archivo para la selección manual
-
         function mostrarAnimacionDeCarga(uploadArea, file, isSuccess, sizeLimit = '', allowedFormats = '') {
             const fileNameShort = acortarNombreArchivo(file.name);
             const fileSize = (file.size / 1024).toFixed(2) + 'KB';  // Tamaño del archivo en KB
@@ -622,6 +559,17 @@
 
                         }
 
+                        switch (uploadAreaId) {
+                            case 'iconUploadAreapush':
+                                $('#clearImagePush').show();
+                                break;
+                            case 'iconUploadAreaListado':
+                                $('#clearIconoListado').show();
+                                break;
+                            case 'mediaUploadAreaListado':
+                                $('#clearMediaListado').show();
+                                break;
+                        }
                         // Reactivar el evento de clic en el enlace "Reemplazar"
                         uploadArea.find('.replace-file').on('click', function () {
                             const inputSelector = uploadAreaId === 'iconUploadAreapush' ? '#iconUploadPush' :
@@ -638,6 +586,31 @@
                 }
             }, 200);
         }
+
+        function clearFileInput(inputId) {
+            const fileInput = document.getElementById(inputId);
+            fileInput.value = '';
+            const uploadAreaId = inputId === 'iconUploadPush' ? '#iconUploadAreapush' :
+                (inputId === 'iconUploadListado' ? '#iconUploadAreaListado' : '#mediaUploadAreaListado');
+            $(uploadAreaId).find('.file-info').hide();
+            $(uploadAreaId).find('.upload-text').show();
+            $(uploadAreaId).find('small').show();
+
+            if (uploadAreaId === '#iconUploadAreapush') {
+                $('#clearImagePush').hide();
+            } else if (uploadAreaId === '#iconUploadAreaListado') {
+                $('#clearIconoListado').hide();
+            } else if (uploadAreaId === '#mediaUploadAreaListado') {
+                $('#clearMediaListado').hide();
+            }
+            // Restablecer el borde del área de carga al estado inicial
+            $(uploadAreaId).removeClass('error success');
+            $(uploadAreaId).css({
+                'border-color': '#ced4da',
+                'border-style': 'dashed'
+            });
+        }
+
 
 
         $(document).on('change', '#iconUploadPush', function (event) {
@@ -662,8 +635,8 @@
         });
 
         function validarArchivo(file, maxSizeMB, allowedTypes) {
-            const fileSizeMB = file.size / (1024 * 1024);  // Convertir el tamaño a MB
-            const fileExtension = file.name.split('.').pop().toLowerCase();  // Obtener la extensión del archivo
+            const fileSizeMB = file.size / (1024 * 1024);
+            const fileExtension = file.name.split('.').pop().toLowerCase();
 
             if (!allowedTypes.includes(fileExtension)) {
                 return { isValid: false, message: `El archivo no cumple con los requisitos` };

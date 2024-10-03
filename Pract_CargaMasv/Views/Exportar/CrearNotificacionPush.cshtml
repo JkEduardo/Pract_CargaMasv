@@ -423,66 +423,142 @@
             return fileSizeMB <= maxSizeMB;
         }
 
+        // function validarDimensiones(file, uploadAreaId, callback) {
+        //     const fileType = file.type.split('/')[0];
+        //     const fileExtension = file.type.split('/')[1];
+
+        //     if (uploadAreaId === 'iconUploadAreapush') {
+        //         obtenerDimensionesImagen(file, function (width, height) {
+        //             const fileSizeOK = validarTamañoArchivo(file, 1); // 1MB máximo
+        //             const formatOK = file.type === 'image/png' || file.type === 'image/jpeg';
+        //             if (esRelacion16_9(width, height) && fileSizeOK && formatOK) {
+        //                 callback(true, '');
+        //             } else {
+        //                 callback(false, 'El archivo no cumple con los requisitos.');
+        //             }
+        //         });
+        //     }
+
+        //     else if (uploadAreaId === 'iconUploadAreaListado') {
+        //         obtenerDimensionesImagen(file, function (width, height) {
+        //             const fileSizeOK = validarTamañoArchivo(file, 1); // 1MB máximo
+        //             const formatOK = file.type === 'image/png' || file.type === 'image/jpeg';
+        //             if (width <= 1080 && height <= 1920 && esRelacion16_9(width, height) && fileSizeOK && formatOK) {
+        //                 callback(true, '');
+        //             } else {
+        //                 callback(false, 'El archivo no cumple con los requisitos.');
+        //             }
+        //         });
+        //     }
+
+        //     // Validación de imágenes y videos para Media Listado
+        //     else if (uploadAreaId === 'mediaUploadAreaListado') {
+        //         if (fileType === 'image') {
+        //             obtenerDimensionesImagen(file, function (width, height) {
+        //                 const validSizes = [
+        //                     { width: 1920, height: 1080 },  // Grande
+        //                     { width: 960, height: 1080 },   // Mediana
+        //                     { width: 480, height: 1080 }    // Chica
+        //                 ];
+        //                 const isValidSize = validSizes.some(size => size.width === width && size.height === height);
+        //                 if (isValidSize && validarTamañoArchivo(file, 20) && (fileExtension === 'png' || fileExtension === 'jpg')) {
+        //                     callback(true, '');
+        //                 } else {
+        //                     callback(false, 'El archivo no cumple con los requisitos.');
+        //                 }
+        //             });
+        //         } else if (fileType === 'video') {
+        //             obtenerDimensionesVideo(file, function (width, height) {
+        //                 const minWidth = 1920 * 0.85;  // 1632 px
+        //                 const maxWidth = 1920 * 1.15;  // 2208 px
+        //                 const minHeight = 1080 * 0.85;  // 918 px
+        //                 const maxHeight = 1080 * 1.15;  // 1242 px
+        //                 const sizeOK = width >= minWidth && width <= maxWidth && height >= minHeight && height <= maxHeight;
+        //                 if (sizeOK && validarTamañoArchivo(file, 20) && fileExtension === 'mp4') {
+        //                     callback(true, '');
+        //                 } else {
+        //                     callback(false, `El archivo no cumple con los requisitos.`);
+        //                 }
+        //             });
+        //         }
+        //     }
+        // }
         function validarDimensiones(file, uploadAreaId, callback) {
             const fileType = file.type.split('/')[0];
             const fileExtension = file.type.split('/')[1];
 
-            if (uploadAreaId === 'iconUploadAreapush') {
-                obtenerDimensionesImagen(file, function (width, height) {
-                    const fileSizeOK = validarTamañoArchivo(file, 1); // 1MB máximo
-                    const formatOK = file.type === 'image/png' || file.type === 'image/jpeg';
-                    if (esRelacion16_9(width, height) && fileSizeOK && formatOK) {
-                        callback(true, '');
-                    } else {
-                        callback(false, 'El archivo no cumple con los requisitos.');
-                    }
-                });
-            }
+            const maxTimeout = 10000; // Tiempo máximo en milisegundos para procesar el archivo (10 segundos)
+            let timeoutHandle;
 
-            else if (uploadAreaId === 'iconUploadAreaListado') {
-                obtenerDimensionesImagen(file, function (width, height) {
-                    const fileSizeOK = validarTamañoArchivo(file, 1); // 1MB máximo
-                    const formatOK = file.type === 'image/png' || file.type === 'image/jpeg';
-                    if (width <= 1080 && height <= 1920 && esRelacion16_9(width, height) && fileSizeOK && formatOK) {
-                        callback(true, '');
-                    } else {
-                        callback(false, 'El archivo no cumple con los requisitos.');
-                    }
-                });
-            }
+            const errorCallback = () => {
+                callback(false, 'Tuvimos un error, intente de nuevo.');
+            };
 
-            // Validación de imágenes y videos para Media Listado
-            else if (uploadAreaId === 'mediaUploadAreaListado') {
-                if (fileType === 'image') {
+            const clearTimeoutAndCallback = (isValid, message) => {
+                clearTimeout(timeoutHandle);
+                callback(isValid, message);
+            };
+
+            timeoutHandle = setTimeout(() => {
+                errorCallback();
+            }, maxTimeout);
+
+            try {
+                if (uploadAreaId === 'iconUploadAreapush') {
                     obtenerDimensionesImagen(file, function (width, height) {
-                        const validSizes = [
-                            { width: 1920, height: 1080 },  // Grande
-                            { width: 960, height: 1080 },   // Mediana
-                            { width: 480, height: 1080 }    // Chica
-                        ];
-                        const isValidSize = validSizes.some(size => size.width === width && size.height === height);
-                        if (isValidSize && validarTamañoArchivo(file, 20) && (fileExtension === 'png' || fileExtension === 'jpg')) {
-                            callback(true, '');
+                        const fileSizeOK = validarTamañoArchivo(file, 1); // 1MB máximo
+                        const formatOK = file.type === 'image/png' || file.type === 'image/jpeg';
+                        if (esRelacion16_9(width, height) && fileSizeOK && formatOK) {
+                            clearTimeoutAndCallback(true, '');
                         } else {
-                            callback(false, 'El archivo no cumple con los requisitos.');
+                            clearTimeoutAndCallback(false, 'El archivo no cumple con los requisitos.');
                         }
                     });
-                } else if (fileType === 'video') {
-                    obtenerDimensionesVideo(file, function (width, height) {
-                        const minWidth = 1920 * 0.85;  // 1632 px
-                        const maxWidth = 1920 * 1.15;  // 2208 px
-                        const minHeight = 1080 * 0.85;  // 918 px
-                        const maxHeight = 1080 * 1.15;  // 1242 px
-                        const sizeOK = width >= minWidth && width <= maxWidth && height >= minHeight && height <= maxHeight;
-                        if (sizeOK && validarTamañoArchivo(file, 20) && fileExtension === 'mp4') {
-                            callback(true, '');
+                } else if (uploadAreaId === 'iconUploadAreaListado') {
+                    obtenerDimensionesImagen(file, function (width, height) {
+                        const fileSizeOK = validarTamañoArchivo(file, 1); // 1MB máximo
+                        const formatOK = file.type === 'image/png' || file.type === 'image/jpeg';
+                        if (width <= 1080 && height <= 1920 && esRelacion16_9(width, height) && fileSizeOK && formatOK) {
+                            clearTimeoutAndCallback(true, '');
                         } else {
-                            callback(false, `El archivo no cumple con los requisitos.`);
+                            clearTimeoutAndCallback(false, 'El archivo no cumple con los requisitos.');
                         }
                     });
+                } else if (uploadAreaId === 'mediaUploadAreaListado') {
+                    if (fileType === 'image') {
+                        obtenerDimensionesImagen(file, function (width, height) {
+                            const validSizes = [
+                                { width: 1920, height: 1080 },  // Grande
+                                { width: 960, height: 1080 },   // Mediana
+                                { width: 480, height: 1080 }    // Chica
+                            ];
+                            const isValidSize = validSizes.some(size => size.width === width && size.height === height);
+                            if (isValidSize && validarTamañoArchivo(file, 20) && (fileExtension === 'png' || fileExtension === 'jpg')) {
+                                clearTimeoutAndCallback(true, '');
+                            } else {
+                                clearTimeoutAndCallback(false, 'El archivo no cumple con los requisitos.');
+                            }
+                        });
+                    } else if (fileType === 'video') {
+                        obtenerDimensionesVideo(file, function (width, height) {
+                            const minWidth = 1920 * 0.85;  // 1632 px
+                            const maxWidth = 1920 * 1.15;  // 2208 px
+                            const minHeight = 1080 * 0.85;  // 918 px
+                            const maxHeight = 1080 * 1.15;  // 1242 px
+                            const sizeOK = width >= minWidth && width <= maxWidth && height >= minHeight && height <= maxHeight;
+                            if (sizeOK && validarTamañoArchivo(file, 20) && fileExtension === 'mp4') {
+                                clearTimeoutAndCallback(true, '');
+                            } else {
+                                clearTimeoutAndCallback(false, `El archivo no cumple con los requisitos.`);
+                            }
+                        });
+                    }
                 }
+            } catch (error) {
+                clearTimeoutAndCallback(false, 'Tuvimos un error, intente de nuevo.');
             }
         }
+
 
         function mostrarAnimacionDeCarga(uploadArea, file, isSuccess, sizeLimit = '', allowedFormats = '') {
             const fileNameShort = acortarNombreArchivo(file.name);
@@ -531,7 +607,7 @@
                                         <div>
                                             <strong class="file-name" style="font-weight: bold; color: black;">${fileNameShort}</strong>
                                             <br />
-                                                    <small class="file-size" style="color: #dc3545;">${fileSize} - ${message}</small>
+                                                    <small class="file-size" style="color: #dc3545;">${message}</small>
                                         </div>
                                     </div>
                                     <a href="javascript:void(0);" class="replace-file" style="color: black; font-weight: bold; text-decoration: none; margin-left: auto;">Reemplazar</a>

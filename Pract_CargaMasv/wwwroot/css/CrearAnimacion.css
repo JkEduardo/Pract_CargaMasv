@@ -771,7 +771,7 @@ textarea.form-control {
     background-color: transparent;
     color: #141415; /* Color del ícono */
     border: none;
-    font-size: 15px; /* Ajusta el tamaño del ícono aquí */
+    font-size: 10px; /* Ajusta el tamaño del ícono aquí */
     border-radius: 100%;
     cursor: pointer;
     padding: 5px 10px; /* Ajusta el tamaño del botón */
@@ -784,7 +784,7 @@ textarea.form-control {
     /* Estilos adicionales para el ícono */
     .close-btn i {
         color: #141415; /* Color blanco del ícono */
-        font-size: 15px; /* Tamaño del ícono */
+        font-size: 10px; /* Tamaño del ícono */
     }
 
 

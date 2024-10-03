@@ -110,6 +110,34 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Columna Derecha: Títulos Android e IOS -->
+                    <div class="col-md-5">
+                        <div class="notification-header2">
+                            <div class="notification-steps2">
+                                <!-- Título Android -->
+                                <div class="step2" onclick="showAndroidContent()">
+                                    <a href="javascript:void(0);" class="tab2 active" id="androidTab">Android</a>
+                                    <div class="line2 active-line2"></div>
+                                </div>
+                                <!-- Título IOS -->
+                                <div class="step2" onclick="showIosContent()">
+                                    <a href="javascript:void(0);" class="tab2" id="iosTab">IOS</a>
+                                    <div class="line2 inactive-line2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contenido de Android -->
+                        <div id="androidContent">
+                            <p>Contenido para Android aquí.</p>
+                        </div>
+                        <!-- Contenido de IOS -->
+                        <div id="iosContent" style="display: none;">
+                            <p>Contenido para IOS aquí.</p>
+                        </div>
+                    </div>
+
+
                     <hr class="line-above-buttons">
                 </div>
                 <div class="row mt-3">
@@ -235,6 +263,7 @@
         }
 
         window.onload = function () {
+            showAndroidContent();
             showPushNotification();
             checkPushFormCompletion();
             document.getElementById('notificationTitlePush').addEventListener('input', checkPushFormCompletion);
@@ -288,6 +317,27 @@
             }
         }
 
+        function showAndroidContent() {
+            document.getElementById('androidTab').classList.add('active');
+            document.getElementById('iosTab').classList.remove('active');
+
+            document.querySelector('.step2 .active-line2').style.backgroundColor = '#141415';
+            document.querySelector('.step2 .inactive-line2').style.backgroundColor = '#ccc';
+
+            document.getElementById('androidContent').style.display = 'block';
+            document.getElementById('iosContent').style.display = 'none';
+        }
+
+        function showIosContent() {
+            document.getElementById('iosTab').classList.add('active');
+            document.getElementById('androidTab').classList.remove('active');
+
+            document.querySelector('.step2 .inactive-line2').style.backgroundColor = '#141415';
+            document.querySelector('.step2 .active-line2').style.backgroundColor = '#ccc';
+
+            document.getElementById('iosContent').style.display = 'block';
+            document.getElementById('androidContent').style.display = 'none';
+        }
         // Validación de caracteres de riesgo y texto rojo
         var riskChars = /[!#$%&'()*+,.\/:;<=>?@@[\\\]^_`{|}~"'-]/g;
 

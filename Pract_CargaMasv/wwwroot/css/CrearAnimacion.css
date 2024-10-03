@@ -788,4 +788,60 @@ textarea.form-control {
     }
 
 
+/*IOS Y ANDROID*/
+.notification-header2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.notification-steps2 {
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+    align-items: flex-end; /* Alinear los títulos en la parte inferior con las líneas */
+}
+
+.step2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tab2 {
+    font-weight: normal;
+    color: gray;
+    text-decoration: none;
+    margin-bottom: 5px;
+    font-family:Figtree-BolNegritas,sans-serif;
+
+}
+    .tab2:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .tab2.active {
+        font-family: Figtree-BolNegritas,sans-serif;
+        font-weight: bold;
+        color: #141415;
+    }
+
+.line2 {
+    width: 150px;
+    height: 2px;
+    background-color: gray;
+}
+
+.active-line2 {
+    background-color: gray;
+}
+
+.inactive-line2 {
+    background-color: gray;
+}
+
+
 

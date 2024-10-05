@@ -766,26 +766,38 @@ textarea.form-control {
 /* Botón de cerrar "X" */
 .close-btn {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: transparent;
-    color: #141415; /* Color del ícono */
-    border: none;
-    font-size: 10px; /* Ajusta el tamaño del ícono aquí */
-    border-radius: 100%;
+    top: 2px;
+    right: 2px;
+    background-color: transparent; /* Fondo transparente */
+    border:none; /* Borde negro */
+    border-radius: none; /* Bordes redondeados al 100% para hacerlo circular */
+    padding: 5px; /* Ajusta el espacio interno */
     cursor: pointer;
-    padding: 5px 10px; /* Ajusta el tamaño del botón */
     z-index: 10;
 }
 
-    .close-btn:hover {
-        background-color: none;
-    }
-    /* Estilos adicionales para el ícono */
     .close-btn i {
-        color: #141415; /* Color blanco del ícono */
-        font-size: 10px; /* Tamaño del ícono */
+        color: #141415;
+        font-size: 20px;
+        font-weight: bold;
+        filter: contrast(2);
+        border-radius: 50px;
     }
+
+.bi bi-x-square {
+    color: #141415; /* Color de la "X" */
+    font-size: 20px; /* Tamaño del ícono */
+    font-weight: bold; /* Aplica peso "negrito" */
+    filter: contrast(2);
+    border-radius:20px;
+}
+
+
+.close-btn:hover {
+    background-color: transparent; /* Mantener fondo transparente al hacer hover */
+}
+
+
 
 
 /*IOS Y ANDROID*/

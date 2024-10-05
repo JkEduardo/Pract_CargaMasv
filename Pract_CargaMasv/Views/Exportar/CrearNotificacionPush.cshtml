@@ -91,7 +91,9 @@
                                 </span>
                             </label>
                             <div class="upload-area" id="iconUploadAreapush">
-                                <button type="button" class="close-btn" id="clearImagePush" style="display: none;" onclick="clearFileInput('iconUploadPush')"> <i class="bi bi-x-lg"></i></button>
+                                <button type="button" class="close-btn" id="clearImagePush" style="display: none;" onclick="clearFileInput('iconUploadPush')">
+                                    <i class="bi bi-x-square"></i>
+                                </button>
                                 <input type="file" id="iconUploadPush" name="NotificationPushImage" class="d-none" accept=".jpg, .png" onchange="startFileUploadPush(this)">
                                 <label for="iconUploadPush" class="upload-text">
                                     <img src="/Img/cargandoArchivo.png" alt="Upload icon">
@@ -287,7 +289,7 @@
 
             const siguienteButton = document.getElementById('siguienteButtonPush');
 
-            if (title && description && status && (!uploadExists || (uploadExists && uploadSuccess)) && !uploadFailed) {
+            if (title && description && status && (!uploadExists || (uploadExists && uploadSuccess))) {
                 siguienteButton.disabled = false;
                 siguienteButton.classList.add('enabled');
             } else {
@@ -308,7 +310,7 @@
 
             const createButton = document.getElementById('createNotificationButtonListado');
 
-            if (title && description && (iconExists && iconUploadSuccess) && (!mediaExists || (mediaExists && mediaUploadSuccess)) && !iconUploadFailed && !mediaUploadFailed) {
+            if (title && description && (iconExists && iconUploadSuccess) && (!mediaExists || (mediaExists && mediaUploadSuccess)) && !iconUploadFailed) {
                 createButton.disabled = false;
                 createButton.classList.add('enabled');
             } else {

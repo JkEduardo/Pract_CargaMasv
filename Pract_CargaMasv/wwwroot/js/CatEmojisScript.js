@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Skipped minification because the original files appears to be already minified.
  * Original file: /npm/@joeattardi/emoji-button@4.6.2/dist/index.js
  *
